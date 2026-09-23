@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — NELDRA</title>
+  <meta name="description" content="The Neldra Collection — thirty finished pieces across three collections. Made to order.">
+  <link rel="stylesheet" href="wp-content/themes/neldra/assets/css/neldra.css">
+</head>
+<body data-page="shop">
+  <div class="scrim" data-scrim></div>
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <button class="overlay__close" data-close>Close ×</button>
+    <div class="overlay__body wrap"><p class="meta" style="margin-bottom:1rem">Search</p><input class="search-input" type="search" placeholder="Search products & projects…" aria-label="Search"></div>
+  </div>
+  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="overlay__close" data-close>Close ×</button>
+    <div class="overlay__body"><ul class="menu-list stack">
+      <li><a href="shop.html">Shop</a></li><li><a href="shop.html">Collections</a></li><li><a href="contract.html">Contract</a></li><li><a href="index.html#projects">Projects</a></li><li><a href="index.html#about">About</a></li>
+    </ul></div>
+  </div>
+  <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Cart">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span class="meta">Cart</span><button class="overlay__close" data-close>Close ×</button></div>
+    <div class="overlay__body"><p class="body-soft" style="font-size:.9rem">Your cart is empty.</p></div>
+    <a class="btn btn--solid" href="shop.html">Explore the collection</a>
+  </aside>
+
+  <header class="site-header site-header--solid" data-header>
+    <div class="site-header__inner wrap">
+      <a class="brand" href="index.html">NELDRA</a>
+      <nav class="nav-primary" aria-label="Primary"><ul>
+        <li><a class="link" href="shop.html">Shop</a></li><li><a class="link" href="shop.html">Collections</a></li><li><a class="link" href="contract.html">Contract</a></li><li><a class="link" href="index.html#projects">Projects</a></li><li><a class="link" href="index.html#about">About</a></li>
+      </ul></nav>
+      <div class="nav-util">
+        <button data-open="search-overlay" aria-label="Open search">Search</button>
+        <button data-open="cart-drawer" aria-label="Open cart">Cart&nbsp;(<span class="cart-count">0</span>)</button>
+        <button class="nav-toggle" data-open="menu-overlay" aria-label="Open menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" style="padding-top:var(--header-h)">
+    <section class="section--tight wrap">
+      <p class="meta" data-reveal>The Collection</p>
+      <h1 class="display upper" data-reveal>Shop</h1>
+      <p class="lead" data-reveal data-reveal-delay="1">Thirty finished pieces, produced specifically for each order. Set the density that suits how you like to browse.</p>
+    </section>
+
+    <section class="wrap" style="padding-bottom:var(--section-y)">
+      <div class="grid-control" data-grid-control style="margin-bottom:3rem">
+        <span class="grid-control__label">Density</span>
+        <button data-cols="2" aria-pressed="false">2</button>
+        <button data-cols="3" aria-pressed="true">3</button>
+        <button data-cols="4" aria-pressed="false">4</button>
+        <button data-cols="5" aria-pressed="false">5</button>
+      </div>
+
+      <div class="grid grid--3" data-grid>
+        <!-- 10 placeholder pieces (single sofa asset reused) -->
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N01"></div><div class="product__meta"><div class="product__name">N01 · Platform Sofa</div><div class="product__price">€ 8,400</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N02"></div><div class="product__meta"><div class="product__name">N02 · Sectional</div><div class="product__price">€ 11,200</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N03"></div><div class="product__meta"><div class="product__name">N03 · Lounge</div><div class="product__price">€ 6,900</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N04"></div><div class="product__meta"><div class="product__name">N04 · Daybed</div><div class="product__price">€ 7,300</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N05"></div><div class="product__meta"><div class="product__name">N05 · Two-Seat</div><div class="product__price">€ 5,600</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N06"></div><div class="product__meta"><div class="product__name">N06 · Corner</div><div class="product__price">€ 12,900</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N07"></div><div class="product__meta"><div class="product__name">N07 · Bench</div><div class="product__price">€ 3,400</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N08"></div><div class="product__meta"><div class="product__name">N08 · Modular</div><div class="product__price">€ 9,800</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N09"></div><div class="product__meta"><div class="product__name">N09 · Chaise</div><div class="product__price">€ 6,200</div><span class="product__tag meta">Made to order</span></div></a>
+        <a class="product" href="product.html" data-reveal><div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N10"></div><div class="product__meta"><div class="product__name">N10 · Island</div><div class="product__price">€ 14,500</div><span class="product__tag meta">Made to order</span></div></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap"><div class="footer-bottom" style="border:0;margin:0"><span>© 2026 Neldra</span><span class="lang-switch" data-lang><button aria-pressed="true">EN</button><button aria-pressed="false">HU</button></span></div></div></footer>
+  <script src="wp-content/themes/neldra/assets/js/neldra.js"></script>
+</body>
+</html>

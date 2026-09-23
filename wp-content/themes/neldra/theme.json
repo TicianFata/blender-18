@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "layout": { "contentSize": "70ch", "wideSize": "1600px" },
+    "color": {
+      "defaultPalette": false,
+      "custom": true,
+      "palette": [
+        { "slug": "bg", "color": "#FFFFFF", "name": "White" },
+        { "slug": "bg-soft", "color": "#F7F7F6", "name": "Soft white" },
+        { "slug": "grey-light", "color": "#E8E9EA", "name": "Light grey" },
+        { "slug": "grey-mid", "color": "#A5A7A9", "name": "Mid grey" },
+        { "slug": "text", "color": "#161616", "name": "Charcoal" },
+        { "slug": "dark", "color": "#131313", "name": "Near black" },
+        { "slug": "accent", "color": "#8A97A0", "name": "Cold steel" }
+      ],
+      "gradients": []
+    },
+    "typography": {
+      "customFontSize": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"TRT Cenzo Demo\", \"Jost\", \"Montserrat\", system-ui, sans-serif",
+          "slug": "display",
+          "name": "Display (Cenzo)"
+        },
+        {
+          "fontFamily": "\"Montserrat\", system-ui, -apple-system, sans-serif",
+          "slug": "body",
+          "name": "Body (Montserrat)"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "size": "0.8125rem", "name": "Small" },
+        { "slug": "body", "size": "1rem", "name": "Body" },
+        { "slug": "lead", "size": "clamp(1.05rem,1.35vw,1.35rem)", "name": "Lead" },
+        { "slug": "h2", "size": "clamp(1.8rem,3.6vw,3.4rem)", "name": "Heading" },
+        { "slug": "display", "size": "clamp(2.4rem,6vw,5.5rem)", "name": "Display" }
+      ]
+    },
+    "spacing": {
+      "customSpacingSize": true,
+      "units": ["px", "rem", "vw", "%"]
+    }
+  },
+  "styles": {
+    "color": { "background": "#FFFFFF", "text": "#161616" },
+    "typography": {
+      "fontFamily": "\"Montserrat\", system-ui, -apple-system, sans-serif",
+      "fontWeight": "300",
+      "lineHeight": "1.7"
+    },
+    "elements": {
+      "h1": { "typography": { "fontFamily": "\"TRT Cenzo Demo\", \"Jost\", \"Montserrat\", sans-serif", "fontWeight": "300" } },
+      "h2": { "typography": { "fontFamily": "\"TRT Cenzo Demo\", \"Jost\", \"Montserrat\", sans-serif", "fontWeight": "300" } },
+      "h3": { "typography": { "fontFamily": "\"TRT Cenzo Demo\", \"Jost\", \"Montserrat\", sans-serif", "fontWeight": "300" } }
+    }
+  }
+}

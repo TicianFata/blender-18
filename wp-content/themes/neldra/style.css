@@ -1,0 +1,19 @@
+/*
+Theme Name: Neldra
+Theme URI: https://neldra.com
+Author: Neldra
+Description: A premium, editorial WordPress + WooCommerce theme for Neldra — a furniture design & production studio with a direct-to-consumer Collection and a project-based Contract division. White architectural gallery aesthetic, split-screen entrance, quiet restrained motion. Headlines in TRT Cenzo Demo Light (drop-in), body in Montserrat. Bilingual-ready (EN/HU).
+Version: 0.1.0
+Requires at least: 6.4
+Tested up to: 6.6
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+Text Domain: neldra
+WC requires at least: 8.0
+Woo: neldra
+*/
+
+/*
+  Runtime styles are enqueued from /assets/css/neldra.css (see functions.php).
+  This file only carries the theme header required by WordPress.
+*/

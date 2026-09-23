@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NELDRA — Furniture Design & Production Studio</title>
+  <meta name="description" content="Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.">
+  <link rel="preload" as="font" type="font/woff2" href="wp-content/themes/neldra/assets/fonts/jost-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="wp-content/themes/neldra/assets/fonts/montserrat-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="wp-content/themes/neldra/assets/css/neldra.css">
+</head>
+<body data-page="home">
+  <a class="btn--ghost" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+
+  <!-- ===== Overlays ===== -->
+  <div class="scrim" data-scrim></div>
+
+  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="overlay__close" data-close>Close ×</button>
+    <div class="overlay__body">
+      <ul class="menu-list stack">
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="shop.html">Collections</a></li>
+        <li><a href="contract.html">Contract</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <button class="overlay__close" data-close>Close ×</button>
+    <div class="overlay__body wrap">
+      <p class="meta" style="margin-bottom:1rem">Search</p>
+      <input class="search-input" type="search" placeholder="Search products & projects…" aria-label="Search">
+    </div>
+  </div>
+
+  <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Cart">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="meta">Cart</span>
+      <button class="overlay__close" data-close>Close ×</button>
+    </div>
+    <div class="overlay__body">
+      <p class="body-soft" style="font-size:.9rem">Your cart is empty.</p>
+    </div>
+    <a class="btn btn--solid" href="shop.html">Explore the collection</a>
+  </aside>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header site-header--overlay" data-header>
+    <div class="site-header__inner wrap">
+      <a class="brand" href="index.html" aria-label="Neldra home">NELDRA</a>
+      <nav class="nav-primary" aria-label="Primary">
+        <ul>
+          <li><a class="link" href="shop.html">Shop</a></li>
+          <li><a class="link" href="shop.html">Collections</a></li>
+          <li><a class="link" href="contract.html">Contract</a></li>
+          <li><a class="link" href="#projects">Projects</a></li>
+          <li><a class="link" href="#about">About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-util">
+        <button data-open="search-overlay" aria-label="Open search">Search</button>
+        <button data-open="cart-drawer" aria-label="Open cart">Cart&nbsp;(<span class="cart-count">0</span>)</button>
+        <button class="nav-toggle" data-open="menu-overlay" aria-label="Open menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Split-screen hero ===== -->
+    <section class="hero" data-hero aria-label="Choose Shop or Contract">
+      <a class="panel panel--shop" data-panel="shop" href="shop.html">
+        <div class="panel__media">
+          <div class="ph ph--shop"><span class="ph__note">Shop image · placeholder</span></div>
+          <img src="wp-content/themes/neldra/assets/img/sofa.svg" alt=""
+               style="position:absolute;left:50%;top:46%;width:62%;transform:translate(-50%,-50%)">
+        </div>
+        <div class="panel__label">
+          <span class="meta">The Collection</span>
+          <span class="panel__title">Shop</span>
+          <span class="panel__intro">Thirty finished pieces across three collections. Made to order, bought online.</span>
+          <span class="panel__enter">Enter the shop <i class="arrow"></i></span>
+        </div>
+      </a>
+      <a class="panel panel--contract" data-panel="contract" href="contract.html">
+        <div class="panel__media">
+          <div class="ph ph--contract"><span class="ph__note">Contract image · placeholder</span></div>
+          <img src="wp-content/themes/neldra/assets/img/interior.svg" alt=""
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+        </div>
+        <div class="panel__label">
+          <span class="meta">Neldra Contract</span>
+          <span class="panel__title">Contract</span>
+          <span class="panel__intro">Furniture for projects, at scale — supplied, modified or developed from scratch.</span>
+          <span class="panel__enter">Start a project <i class="arrow"></i></span>
+        </div>
+      </a>
+      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- ===== Brand statement ===== -->
+    <section class="statement wrap">
+      <h1 class="display upper" data-reveal>A furniture design<br>&amp; production studio</h1>
+      <p class="lead" data-reveal data-reveal-delay="1">Neldra designs, develops and produces furniture — a direct-to-consumer collection and a project-based Contract division, held together by one quiet, architectural language.</p>
+    </section>
+
+    <!-- ===== Featured pieces ===== -->
+    <section class="section wrap" aria-label="Featured pieces">
+      <div class="section-head">
+        <div>
+          <p class="meta" data-reveal>Selected</p>
+          <h2 data-reveal>Featured pieces</h2>
+        </div>
+        <a class="link meta" href="shop.html" data-reveal>View all 30 <i class="arrow"></i></a>
+      </div>
+      <div class="grid grid--3">
+        <a class="product" href="product.html" data-reveal>
+          <div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N01 Platform Sofa"></div>
+          <div class="product__meta">
+            <div class="product__name">N01 · Platform Sofa</div>
+            <div class="product__price">€ 8,400</div>
+            <span class="product__tag meta">Made to order</span>
+          </div>
+        </a>
+        <a class="product" href="product.html" data-reveal data-reveal-delay="1">
+          <div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N02 Sectional"></div>
+          <div class="product__meta">
+            <div class="product__name">N02 · Sectional</div>
+            <div class="product__price">€ 11,200</div>
+            <span class="product__tag meta">Made to order</span>
+          </div>
+        </a>
+        <a class="product" href="product.html" data-reveal data-reveal-delay="2">
+          <div class="product__media"><img src="wp-content/themes/neldra/assets/img/sofa.svg" alt="N03 Lounge"></div>
+          <div class="product__meta">
+            <div class="product__name">N03 · Lounge</div>
+            <div class="product__price">€ 6,900</div>
+            <span class="product__tag meta">Made to order</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== Collections ===== -->
+    <section class="section wrap" aria-label="Collections">
+      <div class="section-head">
+        <div><p class="meta" data-reveal>Three collections · ten pieces each</p><h2 data-reveal>Collections</h2></div>
+      </div>
+      <div class="grid grid--3">
+        <a class="project" href="shop.html" data-reveal>
+          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 01</span></div></div>
+          <div class="project__meta"><span class="project__name">Collection 01</span><span class="meta">10 pieces</span></div>
+        </a>
+        <a class="project" href="shop.html" data-reveal data-reveal-delay="1">
+          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 02</span></div></div>
+          <div class="project__meta"><span class="project__name">Collection 02</span><span class="meta">10 pieces</span></div>
+        </a>
+        <a class="project" href="shop.html" data-reveal data-reveal-delay="2">
+          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 03</span></div></div>
+          <div class="project__meta"><span class="project__name">Collection 03</span><span class="meta">10 pieces</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== Contract teaser (dark) ===== -->
+    <section class="block-dark bleed" id="contract" aria-label="Contract">
+      <div class="contract-teaser wrap">
+        <div class="panel__media" style="opacity:.5">
+          <img src="wp-content/themes/neldra/assets/img/interior.svg" alt="" style="position:absolute;right:0;top:0;width:56%;height:100%;object-fit:cover">
+        </div>
+        <div class="contract-teaser__content" style="position:relative;z-index:2">
+          <p class="meta" data-reveal>Neldra Contract</p>
+          <h2 class="display upper" data-reveal data-reveal-delay="1">Furniture for<br>projects, at scale</h2>
+          <p class="lead" data-reveal data-reveal-delay="2">For architects, hotels, restaurants, offices and developers. Supply existing pieces in quantity, modify a design, or develop entirely new furniture and collections.</p>
+          <p data-reveal data-reveal-delay="3" style="margin-top:2.5rem">
+            <a class="btn btn--on-dark" href="contract.html">Start a project</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Projects teaser ===== -->
+    <section class="section wrap" id="projects" aria-label="Projects">
+      <div class="section-head">
+        <div><p class="meta" data-reveal>Evidence of execution</p><h2 data-reveal>Selected projects</h2></div>
+        <a class="link meta" href="contract.html" data-reveal>All projects <i class="arrow"></i></a>
+      </div>
+      <div class="grid grid--2">
+        <a class="project" href="contract.html" data-reveal>
+          <div class="project__media"><div class="ph ph--contract" style="position:relative"><span class="ph__note">Hotel · Budapest</span></div></div>
+          <div class="project__meta"><span class="project__name">Hotel Aurea</span><span class="meta">Budapest · 2025</span></div>
+        </a>
+        <a class="project" href="contract.html" data-reveal data-reveal-delay="1">
+          <div class="project__media"><div class="ph ph--contract" style="position:relative"><span class="ph__note">Restaurant · Vienna</span></div></div>
+          <div class="project__meta"><span class="project__name">Maison Vera</span><span class="meta">Vienna · 2025</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== About strip ===== -->
+    <section class="section--tight wrap center" id="about">
+      <p class="lead" data-reveal style="margin-inline:auto">“Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.”</p>
+      <p data-reveal data-reveal-delay="1" style="margin-top:2rem"><a class="btn" href="#about">About the studio</a></p>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="brand">NELDRA</span>
+          <p class="body-soft" style="font-size:.85rem;max-width:32ch">Furniture design &amp; production. Made to order. Delivered worldwide.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul><li><a class="link" href="shop.html">All pieces</a></li><li><a class="link" href="shop.html">Collection 01</a></li><li><a class="link" href="shop.html">Collection 02</a></li><li><a class="link" href="shop.html">Collection 03</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contract</h4>
+          <ul><li><a class="link" href="contract.html">Start a project</a></li><li><a class="link" href="contract.html">Capabilities</a></li><li><a class="link" href="contract.html">Projects</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul><li><a class="link" href="#about">About</a></li><li><a class="link" href="#">Contact</a></li><li><a class="link" href="#">Care &amp; warranty</a></li><li><a class="link" href="#">Shipping</a></li></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Neldra — All rights reserved</span>
+        <span class="lang-switch" data-lang>
+          <button aria-pressed="true">EN</button>
+          <button aria-pressed="false">HU</button>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="wp-content/themes/neldra/assets/js/neldra.js"></script>
+</body>
+</html>

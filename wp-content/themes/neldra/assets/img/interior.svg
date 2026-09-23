@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Architectural interior" preserveAspectRatio="xMidYMid slice">
+  <g fill="none" stroke="#f4f4f3" stroke-width="1" opacity="0.22">
+    <!-- room perspective -->
+    <path d="M0 150 L1200 150"/>
+    <path d="M0 690 L1200 690"/>
+    <path d="M150 0 L150 800"/>
+    <path d="M1050 0 L1050 800"/>
+    <!-- floor lines -->
+    <path d="M150 690 L420 800"/>
+    <path d="M1050 690 L780 800"/>
+    <path d="M320 690 L360 800"/>
+    <path d="M880 690 L840 800"/>
+    <!-- large window grid on the back wall -->
+    <path d="M300 190 L900 190 L900 560 L300 560 Z"/>
+    <path d="M450 190 L450 560"/>
+    <path d="M600 190 L600 560"/>
+    <path d="M750 190 L750 560"/>
+    <path d="M300 320 L900 320"/>
+    <path d="M300 440 L900 440"/>
+  </g>
+  <!-- long low sofa silhouette -->
+  <g opacity="0.55">
+    <rect x="360" y="600" width="480" height="70" rx="6" fill="#0a0a0a"/>
+    <rect x="380" y="560" width="440" height="48" rx="10" fill="#101010"/>
+    <rect x="380" y="516" width="120" height="52" rx="10" fill="#141414"/>
+    <rect x="520" y="516" width="120" height="52" rx="10" fill="#141414"/>
+    <rect x="660" y="516" width="120" height="52" rx="10" fill="#141414"/>
+  </g>
+</svg>

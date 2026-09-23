@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Kiro artifacts (screenshots, scratch)
+.kiro/artifacts/
+
+# Node (if tooling is added later)
+node_modules/
+
+# WordPress runtime (this repo ships only the theme + prototype, not a full WP install)
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
