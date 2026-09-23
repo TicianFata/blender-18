@@ -13,7 +13,7 @@ Platform: **WordPress + WooCommerce**. Visual world: extremely white, editorial,
 
 A **static prototype** of the design + animations is published via GitHub Pages:
 
-> **https://ticianfata.github.io/neldra/**
+> **https://ticianfata.github.io/blender-18/**
 
 Pages included: **Home** (split-screen entrance), **Shop** (grid-density switch), **Product** (white-blend gallery + dual CTA), **Contract** (capabilities, service levels, process, project request form). Move your cursor across the homepage hero to watch the boundary between **Shop** and **Contract** expand.
 
