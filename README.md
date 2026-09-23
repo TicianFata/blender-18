@@ -9,13 +9,15 @@ Platform: **WordPress + WooCommerce**. Visual world: extremely white, editorial,
 
 ---
 
-## 🔴 Live preview
+## 🔴 How to view the prototype
 
-A **static prototype** of the design + animations is published via GitHub Pages:
+This repo is **private**, so GitHub Pages needs a paid upgrade — instead, view it **offline** (no hosting needed):
 
-> **https://ticianfata.github.io/blender-18/**
+**Option A — full prototype (recommended):** click the green **`< > Code`** button above → **Download ZIP** → unzip → double-click **`index.html`**. All pages + animations run offline (fonts/CSS/JS are local).
 
-Pages included: **Home** (split-screen entrance), **Shop** (grid-density switch), **Product** (white-blend gallery + dual CTA), **Contract** (capabilities, service levels, process, project request form). Move your cursor across the homepage hero to watch the boundary between **Shop** and **Contract** expand.
+**Option B — single self-contained files:** the [`/standalone`](./standalone) folder has each page as **one `.html` file** with everything (CSS, JS, fonts, images) inlined. Open any file's **"Download raw file"** button on GitHub, then double-click it — or email/share it. Keep the four files in one folder so the nav links work.
+
+Pages included: **Home** (split-screen entrance — move your cursor to expand Shop ⇄ Contract), **Shop** (grid-density switch), **Product** (white-blend gallery + dual CTA), **Contract** (capabilities, service levels, process, project request form).
 
 > The prototype and the WordPress theme **share the same CSS/JS/fonts**, so what you see is exactly what the theme renders.
 
