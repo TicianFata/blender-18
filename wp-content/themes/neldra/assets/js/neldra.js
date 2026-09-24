@@ -213,24 +213,27 @@
   }
 
   /* ----------------------------------------------------------------------
-     Custom cursor (desktop enhancement)
+     Selectable option chips (.swatch) — finishes, materials, project type,
+     scale, needs. Single-select within the closest group by default; add
+     data-multi on the group for multi-select (e.g. "What do you need?").
      ---------------------------------------------------------------------- */
-  function initCursor() {
-    if (coarse || reduce) return;
-    var dot = document.createElement("div");
-    dot.className = "cursor";
-    document.body.appendChild(dot);
-    document.body.classList.add("has-cursor");
-    var x = 0, y = 0, cx = 0, cy = 0;
-    document.addEventListener("mousemove", function (e) { x = e.clientX; y = e.clientY; });
-    (function loop() {
-      cx += (x - cx) * 0.2; cy += (y - cy) * 0.2;
-      dot.style.transform = "translate(" + cx + "px," + cy + "px) translate(-50%,-50%)";
-      requestAnimationFrame(loop);
-    })();
-    $$("a, button, [data-panel]").forEach(function (el) {
-      el.addEventListener("mouseenter", function () { dot.classList.add("is-hover"); });
-      el.addEventListener("mouseleave", function () { dot.classList.remove("is-hover"); });
+  function initSwatches() {
+    $$(".swatch").forEach(function (sw) {
+      // Avoid submitting a surrounding form when a chip is clicked.
+      if (!sw.getAttribute("type")) sw.setAttribute("type", "button");
+
+      sw.addEventListener("click", function (e) {
+        e.preventDefault();
+        var group = sw.closest("[data-swatch-group]") || sw.closest(".pdp__row") || sw.parentElement;
+        var multi = group.hasAttribute("data-multi");
+        if (multi) {
+          var on = sw.getAttribute("aria-pressed") === "true";
+          sw.setAttribute("aria-pressed", on ? "false" : "true");
+        } else {
+          $$(".swatch", group).forEach(function (s) { s.setAttribute("aria-pressed", "false"); });
+          sw.setAttribute("aria-pressed", "true");
+        }
+      });
     });
   }
 
@@ -243,7 +246,7 @@
     initGridControl();
     initAccordion();
     initQty();
+    initSwatches();
     initLang();
-    initCursor();
   });
 })();

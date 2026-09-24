@@ -673,26 +673,6 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 .scrim.is-open { opacity: 1; visibility: visible; }
 
 /* --------------------------------------------------------------------------
-   15. Custom cursor (desktop, enhancement only)
-   -------------------------------------------------------------------------- */
-.cursor {
-  position: fixed;
-  top: 0; left: 0;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--c-text);
-  mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: var(--z-cursor);
-  transform: translate(-50%, -50%);
-  transition: width var(--dur-fast) var(--ease-soft), height var(--dur-fast) var(--ease-soft), background var(--dur-fast);
-  will-change: transform;
-}
-.cursor.is-hover { width: 46px; height: 46px; background: #fff; }
-body.has-cursor { cursor: none; }
-body.has-cursor a, body.has-cursor button { cursor: none; }
-
-/* --------------------------------------------------------------------------
    16. Scroll reveal
    -------------------------------------------------------------------------- */
 [data-reveal] {
@@ -749,6 +729,4 @@ body.has-cursor a, body.has-cursor button { cursor: none; }
   }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   .panel__intro { opacity: .8 !important; transform: none !important; }
-  .cursor { display: none !important; }
-  body.has-cursor { cursor: auto !important; }
 }
