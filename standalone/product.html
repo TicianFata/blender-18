@@ -693,6 +693,68 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 .project__name { font-family: var(--font-display); font-size: var(--fs-h3); letter-spacing: .02em; }
 
 /* --------------------------------------------------------------------------
+   11b. Projects page (editorial, parallax, scroll-interactive)
+   -------------------------------------------------------------------------- */
+.proj-hero { padding-block: clamp(3rem, 8vw, 7rem) clamp(2rem, 5vw, 4rem); }
+.proj-hero .hero-title { display: block; }
+.proj-hero .lead { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+/* full-bleed helper (escape the wrap to the viewport edges) */
+.fullbleed { width: 100vw; margin-left: calc(50% - 50vw); }
+
+/* parallax figure: inner image is oversized and translated on scroll */
+.pfig { position: relative; overflow: hidden; background: var(--c-bg-soft); }
+.pfig img {
+  position: absolute;
+  inset: -15% 0;
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  will-change: transform;
+}
+.pfig--wide { aspect-ratio: 16 / 9; }
+.pfig--cine { aspect-ratio: 21 / 9; }
+.pfig--tall { aspect-ratio: 3 / 4; }
+.pfig--sq   { aspect-ratio: 1 / 1; }
+
+/* caption under/over a project image */
+.pcap { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-top: var(--sp-3); flex-wrap: wrap; }
+.pcap__name { font-family: var(--font-display); font-size: var(--fs-h3); letter-spacing: .02em; }
+.pcap__tag { color: var(--c-text-soft); }
+
+/* alternating editorial block: image + minimal text */
+.pblock { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.pblock--rev { grid-template-columns: 1fr 1.5fr; }
+.pblock--rev .pblock__text { order: -1; }
+.pblock__num { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.4rem); color: var(--c-grey-light); line-height: 1; }
+.pblock__text .meta { margin-top: 1rem; }
+.pblock__text h3 { margin-top: .5rem; }
+.pblock__text p { margin-top: 1rem; color: var(--c-text-soft); font-size: var(--fs-small); max-width: 38ch; }
+
+/* two-up images */
+.ptwo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.5vw, 2rem); }
+
+/* horizontal scroll strip */
+.pstrip {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.pstrip::-webkit-scrollbar { display: none; }
+.pstrip > figure { flex: 0 0 min(72vw, 440px); scroll-snap-align: start; margin: 0; }
+.pstrip .pfig { aspect-ratio: 4 / 5; }
+
+@media (max-width: 860px) {
+  .pblock, .pblock--rev { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .pblock--rev .pblock__text { order: 0; }
+  .ptwo { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
    12. Product page
    -------------------------------------------------------------------------- */
 .pdp {
@@ -1007,13 +1069,13 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 <body data-page="product">
   <div class="scrim" data-scrim></div>
   <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"><button class="overlay__close" data-close>Close ×</button><div class="overlay__body wrap"><p class="meta" style="margin-bottom:1rem">Search</p><input class="search-input" type="search" placeholder="Search products & projects…" aria-label="Search"></div></div>
-  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu"><button class="overlay__close" data-close>Close ×</button><div class="overlay__body"><ul class="menu-list stack"><li><a href="shop.html">Shop</a></li><li><a href="shop.html">Collections</a></li><li><a href="contract.html">Contract</a></li><li><a href="index.html#projects">Projects</a></li><li><a href="index.html#about">About</a></li></ul></div></div>
+  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu"><button class="overlay__close" data-close>Close ×</button><div class="overlay__body"><ul class="menu-list stack"><li><a href="shop.html">Shop</a></li><li><a href="shop.html">Collections</a></li><li><a href="contract.html">Contract</a></li><li><a href="projects.html">Projects</a></li><li><a href="index.html#about">About</a></li></ul></div></div>
   <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Cart"><div style="display:flex;justify-content:space-between;align-items:center"><span class="meta">Cart</span><button class="overlay__close" data-close>Close ×</button></div><div class="overlay__body"><p class="body-soft" style="font-size:.9rem">Your cart is empty.</p></div><a class="btn btn--solid" href="shop.html">Explore the collection</a></aside>
 
   <header class="site-header site-header--solid" data-header>
     <div class="site-header__inner wrap">
       <a class="brand" href="index.html">NELDRA</a>
-      <nav class="nav-primary" aria-label="Primary"><ul><li><a class="link" href="shop.html">Shop</a></li><li><a class="link" href="shop.html">Collections</a></li><li><a class="link" href="contract.html">Contract</a></li><li><a class="link" href="index.html#projects">Projects</a></li><li><a class="link" href="index.html#about">About</a></li></ul></nav>
+      <nav class="nav-primary" aria-label="Primary"><ul><li><a class="link" href="shop.html">Shop</a></li><li><a class="link" href="shop.html">Collections</a></li><li><a class="link" href="contract.html">Contract</a></li><li><a class="link" href="projects.html">Projects</a></li><li><a class="link" href="index.html#about">About</a></li></ul></nav>
       <div class="nav-util"><button data-open="search-overlay">Search</button><button data-open="cart-drawer">Cart&nbsp;(<span class="cart-count">0</span>)</button><button class="nav-toggle" data-open="menu-overlay">Menu</button></div>
     </div>
   </header>
@@ -1376,6 +1438,39 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   }
 
   /* ----------------------------------------------------------------------
+     Parallax — subtle scroll translation for oversized images.
+     Reference position is the (untransformed) parent frame, so there is no
+     feedback loop. Disabled under reduced motion.
+     ---------------------------------------------------------------------- */
+  function initParallax() {
+    if (reduce) return;
+    var els = $$("[data-parallax]");
+    if (!els.length) return;
+    var ticking = false;
+
+    function update() {
+      var vh = window.innerHeight;
+      els.forEach(function (el) {
+        var host = el.parentElement;
+        var r = host.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        var speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
+        var y = -(r.top + r.height / 2 - vh / 2) * speed;
+        var max = r.height * 0.12;
+        if (y > max) y = max; else if (y < -max) y = -max;
+        el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+      });
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+  }
+
+  /* ----------------------------------------------------------------------
      Collections — 3-panel split that expands toward the pointer
      ---------------------------------------------------------------------- */
   function initCollections() {
@@ -1476,6 +1571,7 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
     initSwatches();
     initLightbox();
     initCollections();
+    initParallax();
     initNewsletter();
     initLang();
   });

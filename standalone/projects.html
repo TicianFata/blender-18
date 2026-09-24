@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NELDRA — Furniture Design & Production Studio</title>
-  <meta name="description" content="Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.">
-
+  <title>Projects — NELDRA</title>
+  <meta name="description" content="Neldra projects — competition-winning designs, custom furniture, delivered projects and large-scale production.">
   <style>
 /* ==========================================================================
    NELDRA — Design System
@@ -1067,237 +1066,115 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 
 </style>
 </head>
-<body data-page="home">
-  <a class="btn--ghost" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
-
-  <!-- ===== Overlays ===== -->
+<body data-page="projects">
   <div class="scrim" data-scrim></div>
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"><button class="overlay__close" data-close>Close &times;</button><div class="overlay__body wrap"><p class="meta" style="margin-bottom:1rem">Search</p><input class="search-input" type="search" placeholder="Search products & projects…" aria-label="Search"></div></div>
+  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu"><button class="overlay__close" data-close>Close &times;</button><div class="overlay__body"><ul class="menu-list stack"><li><a href="shop.html">Shop</a></li><li><a href="shop.html">Collections</a></li><li><a href="contract.html">Contract</a></li><li><a href="projects.html">Projects</a></li><li><a href="index.html#about">About</a></li></ul></div></div>
+  <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Cart"><div style="display:flex;justify-content:space-between;align-items:center"><span class="meta">Cart</span><button class="overlay__close" data-close>Close &times;</button></div><div class="overlay__body"><p class="body-soft" style="font-size:.9rem">Your cart is empty.</p></div><a class="btn btn--solid" href="shop.html">Explore the collection</a></aside>
 
-  <div class="overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
-    <button class="overlay__close" data-close>Close ×</button>
-    <div class="overlay__body">
-      <ul class="menu-list stack">
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="shop.html">Collections</a></li>
-        <li><a href="contract.html">Contract</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
-    <button class="overlay__close" data-close>Close ×</button>
-    <div class="overlay__body wrap">
-      <p class="meta" style="margin-bottom:1rem">Search</p>
-      <input class="search-input" type="search" placeholder="Search products & projects…" aria-label="Search">
-    </div>
-  </div>
-
-  <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Cart">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <span class="meta">Cart</span>
-      <button class="overlay__close" data-close>Close ×</button>
-    </div>
-    <div class="overlay__body">
-      <p class="body-soft" style="font-size:.9rem">Your cart is empty.</p>
-    </div>
-    <a class="btn btn--solid" href="shop.html">Explore the collection</a>
-  </aside>
-
-  <!-- ===== Header ===== -->
-  <header class="site-header site-header--overlay" data-header>
+  <header class="site-header site-header--solid" data-header>
     <div class="site-header__inner wrap">
-      <a class="brand" href="index.html" aria-label="Neldra home">NELDRA</a>
-      <nav class="nav-primary" aria-label="Primary">
-        <ul>
-          <li><a class="link" href="shop.html">Shop</a></li>
-          <li><a class="link" href="shop.html">Collections</a></li>
-          <li><a class="link" href="contract.html">Contract</a></li>
-          <li><a class="link" href="projects.html">Projects</a></li>
-          <li><a class="link" href="#about">About</a></li>
-        </ul>
-      </nav>
-      <div class="nav-util">
-        <button data-open="search-overlay" aria-label="Open search">Search</button>
-        <button data-open="cart-drawer" aria-label="Open cart">Cart&nbsp;(<span class="cart-count">0</span>)</button>
-        <button class="nav-toggle" data-open="menu-overlay" aria-label="Open menu">Menu</button>
-      </div>
+      <a class="brand" href="index.html">NELDRA</a>
+      <nav class="nav-primary" aria-label="Primary"><ul><li><a class="link" href="shop.html">Shop</a></li><li><a class="link" href="shop.html">Collections</a></li><li><a class="link" href="contract.html">Contract</a></li><li><a class="link" href="projects.html">Projects</a></li><li><a class="link" href="index.html#about">About</a></li></ul></nav>
+      <div class="nav-util"><button data-open="search-overlay">Search</button><button data-open="cart-drawer">Cart&nbsp;(<span class="cart-count">0</span>)</button><button class="nav-toggle" data-open="menu-overlay">Menu</button></div>
     </div>
   </header>
 
-  <main id="main">
-    <!-- ===== Split-screen hero ===== -->
-    <section class="hero" data-hero aria-label="Choose Shop or Contract">
-      <a class="panel panel--shop" data-panel="shop" href="shop.html">
-        <div class="panel__media">
-          <img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-angle.jpg" alt="Neldra N01 Platform Sofa"
-               style="position:absolute;left:50%;top:50%;width:84%;transform:translate(-50%,-50%);object-fit:contain">
-        </div>
-        <div class="panel__label">
-          <span class="meta">The Collection</span>
-          <span class="panel__title">Shop</span>
-          <span class="panel__intro">Thirty finished pieces across three collections. Made to order, bought online.</span>
-          <span class="panel__enter">Enter the shop <i class="arrow"></i></span>
-        </div>
-      </a>
-      <a class="panel panel--contract" data-panel="contract" href="contract.html">
-        <div class="panel__media">
-          <div class="ph ph--contract"><span class="ph__note">Contract image · placeholder</span></div>
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJBcmNoaXRlY3R1cmFsIGludGVyaW9yIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjRmNGYzIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMjIiPgogICAgPCEtLSByb29tIHBlcnNwZWN0aXZlIC0tPgogICAgPHBhdGggZD0iTTAgMTUwIEwxMjAwIDE1MCIvPgogICAgPHBhdGggZD0iTTAgNjkwIEwxMjAwIDY5MCIvPgogICAgPHBhdGggZD0iTTE1MCAwIEwxNTAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCAwIEwxMDUwIDgwMCIvPgogICAgPCEtLSBmbG9vciBsaW5lcyAtLT4KICAgIDxwYXRoIGQ9Ik0xNTAgNjkwIEw0MjAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCA2OTAgTDc4MCA4MDAiLz4KICAgIDxwYXRoIGQ9Ik0zMjAgNjkwIEwzNjAgODAwIi8+CiAgICA8cGF0aCBkPSJNODgwIDY5MCBMODQwIDgwMCIvPgogICAgPCEtLSBsYXJnZSB3aW5kb3cgZ3JpZCBvbiB0aGUgYmFjayB3YWxsIC0tPgogICAgPHBhdGggZD0iTTMwMCAxOTAgTDkwMCAxOTAgTDkwMCA1NjAgTDMwMCA1NjAgWiIvPgogICAgPHBhdGggZD0iTTQ1MCAxOTAgTDQ1MCA1NjAiLz4KICAgIDxwYXRoIGQ9Ik02MDAgMTkwIEw2MDAgNTYwIi8+CiAgICA8cGF0aCBkPSJNNzUwIDE5MCBMNzUwIDU2MCIvPgogICAgPHBhdGggZD0iTTMwMCAzMjAgTDkwMCAzMjAiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNDQwIEw5MDAgNDQwIi8+CiAgPC9nPgogIDwhLS0gbG9uZyBsb3cgc29mYSBzaWxob3VldHRlIC0tPgogIDxnIG9wYWNpdHk9IjAuNTUiPgogICAgPHJlY3QgeD0iMzYwIiB5PSI2MDAiIHdpZHRoPSI0ODAiIGhlaWdodD0iNzAiIHJ4PSI2IiBmaWxsPSIjMGEwYTBhIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjU2MCIgd2lkdGg9IjQ0MCIgaGVpZ2h0PSI0OCIgcng9IjEwIiBmaWxsPSIjMTAxMDEwIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI1MjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI2NjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgPC9nPgo8L3N2Zz4K" alt=""
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
-        </div>
-        <div class="panel__label">
-          <span class="meta">Neldra Contract</span>
-          <span class="panel__title">Contract</span>
-          <span class="panel__intro">Furniture for projects, at scale — supplied, modified or developed from scratch.</span>
-          <span class="panel__enter">Start a project <i class="arrow"></i></span>
-        </div>
-      </a>
-      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+  <main id="main" style="padding-top:var(--header-h)">
+
+    <!-- Hero -->
+    <section class="proj-hero wrap">
+      <p class="meta" data-reveal>Selected work · Evidence of execution</p>
+      <h1 class="hero-title upper" data-reveal data-reveal-delay="1">Projects</h1>
+      <p class="lead" data-reveal data-reveal-delay="2">A record of what Neldra has designed, developed and delivered — from competition-winning pieces to large-scale production for hotels, restaurants and architecture.</p>
     </section>
 
-    <!-- ===== Brand statement ===== -->
-    <section class="statement wrap">
-      <h1 class="display upper" data-reveal>A furniture design<br>&amp; production studio</h1>
-      <p class="lead" data-reveal data-reveal-delay="1">Neldra designs, develops and produces furniture — a direct-to-consumer collection and a project-based Contract division, held together by one quiet, architectural language.</p>
+    <!-- Categories the studio works across -->
+    <section class="wrap section--tight">
+      <ul class="rows" data-reveal>
+        <li><span class="row__title">Competition-winning designs</span><span class="meta">08</span></li>
+        <li><span class="row__title">Custom-made furniture</span><span class="meta">24</span></li>
+        <li><span class="row__title">Delivered &amp; sold projects</span><span class="meta">40+</span></li>
+        <li><span class="row__title">Large-scale production</span><span class="meta">12</span></li>
+        <li><span class="row__title">Hospitality &amp; architecture</span><span class="meta">18</span></li>
+      </ul>
     </section>
 
-    <!-- ===== Featured pieces ===== -->
-    <section class="section wrap" aria-label="Featured pieces">
-      <div class="section-head">
-        <div>
-          <p class="meta" data-reveal>Selected</p>
-          <h2 data-reveal>Featured pieces</h2>
-        </div>
-        <a class="link meta" href="shop.html" data-reveal>View all 30 <i class="arrow"></i></a>
-      </div>
-      <div class="grid grid--3">
-        <a class="product" href="product.html" data-reveal>
-          <div class="product__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-angle.jpg" alt="N01 Platform Sofa"></div>
-          <div class="product__meta">
-            <div class="product__name">N01 · Platform Sofa</div>
-            <div class="product__price">€ 8,400</div>
-            <span class="product__tag meta">Made to order</span>
-          </div>
-        </a>
-        <a class="product" href="product.html" data-reveal data-reveal-delay="1">
-          <div class="product__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-front.jpg" alt="N02 Sectional"></div>
-          <div class="product__meta">
-            <div class="product__name">N02 · Sectional</div>
-            <div class="product__price">€ 11,200</div>
-            <span class="product__tag meta">Made to order</span>
-          </div>
-        </a>
-        <a class="product" href="product.html" data-reveal data-reveal-delay="2">
-          <div class="product__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-side.jpg" alt="N03 Lounge"></div>
-          <div class="product__meta">
-            <div class="product__name">N03 · Lounge</div>
-            <div class="product__price">€ 6,900</div>
-            <span class="product__tag meta">Made to order</span>
-          </div>
-        </a>
-      </div>
+    <!-- Featured full-bleed, parallax -->
+    <section class="section--tight">
+      <figure class="pfig pfig--cine fullbleed" data-reveal>
+        <img data-parallax="0.1" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Hotel Aurea — lounge production">
+      </figure>
+      <div class="wrap"><div class="pcap" data-reveal><span class="pcap__name">Hotel Aurea — Lounge</span><span class="pcap__tag meta">Budapest · 2025 · Large-scale production · 120 units</span></div></div>
     </section>
 
-    <!-- ===== Collections ===== -->
-    <section class="section wrap" aria-label="Collections">
-      <div class="section-head">
-        <div><p class="meta" data-reveal>Three collections · ten pieces each</p><h2 data-reveal>Collections</h2></div>
-      </div>
-      <div class="collections-split" data-reveal>
-        <a class="cpanel" href="shop.html">
-          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Collection 01"></div>
-          <div class="cpanel__label"><span class="cpanel__name">Collection 01</span><span class="meta">10 pieces</span></div>
-        </a>
-        <a class="cpanel" href="shop.html">
-          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Collection 02"></div>
-          <div class="cpanel__label"><span class="cpanel__name">Collection 02</span><span class="meta">10 pieces</span></div>
-        </a>
-        <a class="cpanel" href="shop.html">
-          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-2.jpg" alt="Collection 03"></div>
-          <div class="cpanel__label"><span class="cpanel__name">Collection 03</span><span class="meta">10 pieces</span></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===== Contract teaser (dark) ===== -->
-    <section class="block-dark bleed" id="contract" aria-label="Contract">
-      <div class="contract-teaser wrap">
-        <div class="panel__media" style="opacity:.5">
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJBcmNoaXRlY3R1cmFsIGludGVyaW9yIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjRmNGYzIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMjIiPgogICAgPCEtLSByb29tIHBlcnNwZWN0aXZlIC0tPgogICAgPHBhdGggZD0iTTAgMTUwIEwxMjAwIDE1MCIvPgogICAgPHBhdGggZD0iTTAgNjkwIEwxMjAwIDY5MCIvPgogICAgPHBhdGggZD0iTTE1MCAwIEwxNTAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCAwIEwxMDUwIDgwMCIvPgogICAgPCEtLSBmbG9vciBsaW5lcyAtLT4KICAgIDxwYXRoIGQ9Ik0xNTAgNjkwIEw0MjAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCA2OTAgTDc4MCA4MDAiLz4KICAgIDxwYXRoIGQ9Ik0zMjAgNjkwIEwzNjAgODAwIi8+CiAgICA8cGF0aCBkPSJNODgwIDY5MCBMODQwIDgwMCIvPgogICAgPCEtLSBsYXJnZSB3aW5kb3cgZ3JpZCBvbiB0aGUgYmFjayB3YWxsIC0tPgogICAgPHBhdGggZD0iTTMwMCAxOTAgTDkwMCAxOTAgTDkwMCA1NjAgTDMwMCA1NjAgWiIvPgogICAgPHBhdGggZD0iTTQ1MCAxOTAgTDQ1MCA1NjAiLz4KICAgIDxwYXRoIGQ9Ik02MDAgMTkwIEw2MDAgNTYwIi8+CiAgICA8cGF0aCBkPSJNNzUwIDE5MCBMNzUwIDU2MCIvPgogICAgPHBhdGggZD0iTTMwMCAzMjAgTDkwMCAzMjAiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNDQwIEw5MDAgNDQwIi8+CiAgPC9nPgogIDwhLS0gbG9uZyBsb3cgc29mYSBzaWxob3VldHRlIC0tPgogIDxnIG9wYWNpdHk9IjAuNTUiPgogICAgPHJlY3QgeD0iMzYwIiB5PSI2MDAiIHdpZHRoPSI0ODAiIGhlaWdodD0iNzAiIHJ4PSI2IiBmaWxsPSIjMGEwYTBhIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjU2MCIgd2lkdGg9IjQ0MCIgaGVpZ2h0PSI0OCIgcng9IjEwIiBmaWxsPSIjMTAxMDEwIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI1MjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI2NjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgPC9nPgo8L3N2Zz4K" alt="" style="position:absolute;right:0;top:0;width:56%;height:100%;object-fit:cover">
-        </div>
-        <div class="contract-teaser__content" style="position:relative;z-index:2">
-          <p class="meta" data-reveal>Neldra Contract</p>
-          <h2 class="display upper" data-reveal data-reveal-delay="1">Furniture for<br>projects, at scale</h2>
-          <p class="lead" data-reveal data-reveal-delay="2">For architects, hotels, restaurants, offices and developers. Supply existing pieces in quantity, modify a design, or develop entirely new furniture and collections.</p>
-          <p data-reveal data-reveal-delay="3" style="margin-top:2.5rem">
-            <a class="btn btn--on-dark" href="contract.html">Start a project</a>
-          </p>
+    <!-- Block 01 -->
+    <section class="section wrap">
+      <div class="pblock" data-reveal>
+        <figure class="pfig pfig--wide" style="margin:0"><img data-parallax="0.08" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-angle.jpg" alt="N01 Platform Sofa"></figure>
+        <div class="pblock__text">
+          <span class="pblock__num">01</span>
+          <p class="meta">Competition-winning design</p>
+          <h3>N01 · Platform Sofa</h3>
+          <p>Awarded for its floating twin-slab construction. Now a permanent piece in the Neldra Collection.</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== Projects teaser ===== -->
-    <section class="section wrap" id="projects" aria-label="Projects">
-      <div class="section-head">
-        <div><p class="meta" data-reveal>Evidence of execution</p><h2 data-reveal>Selected projects</h2></div>
-        <a class="link meta" href="projects.html" data-reveal>All projects <i class="arrow"></i></a>
+    <!-- Two-up -->
+    <section class="section--tight wrap">
+      <div class="ptwo" data-reveal>
+        <figure class="pfig pfig--tall" style="margin:0"><img data-parallax="0.09" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Custom bench detail"></figure>
+        <figure class="pfig pfig--tall" style="margin:0"><img data-parallax="0.12" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-2.jpg" alt="Custom cushion detail"></figure>
       </div>
-      <div class="grid grid--2">
-        <a class="project" href="projects.html" data-reveal>
-          <div class="project__media"><div class="ph ph--contract" style="position:relative"><span class="ph__note">Hotel · Budapest</span></div></div>
-          <div class="project__meta"><span class="project__name">Hotel Aurea</span><span class="meta">Budapest · 2025</span></div>
-        </a>
-        <a class="project" href="projects.html" data-reveal data-reveal-delay="1">
-          <div class="project__media"><div class="ph ph--contract" style="position:relative"><span class="ph__note">Restaurant · Vienna</span></div></div>
-          <div class="project__meta"><span class="project__name">Maison Vera</span><span class="meta">Vienna · 2025</span></div>
-        </a>
+      <div class="pcap" data-reveal><span class="pcap__name">Maison Vera — Bar Seating</span><span class="pcap__tag meta">Vienna · 2025 · Custom-made furniture</span></div>
+    </section>
+
+    <!-- Block 02 (reversed) -->
+    <section class="section wrap">
+      <div class="pblock pblock--rev" data-reveal>
+        <figure class="pfig pfig--wide" style="margin:0"><img data-parallax="0.08" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-side.jpg" alt="Monolith bench"></figure>
+        <div class="pblock__text">
+          <span class="pblock__num">02</span>
+          <p class="meta">Custom · Delivered &amp; sold</p>
+          <h3>Monolith · Bench</h3>
+          <p>A single-block bench developed for a private residence, delivered and installed on schedule.</p>
+        </div>
       </div>
     </section>
 
-    <!-- ===== Newsletter ===== -->
-    <section class="newsletter wrap center" id="newsletter">
-      <h2 class="display" data-reveal>Be the First to Know</h2>
-      <p class="newsletter__sub" data-reveal data-reveal-delay="1">…about new collections and special offers.</p>
-      <form class="newsletter__form" data-reveal data-reveal-delay="2" data-newsletter>
-        <input type="email" name="email" class="newsletter__input" placeholder="Email address" aria-label="Email address" required>
-        <button type="submit" class="newsletter__btn" aria-label="Subscribe"><span class="arrow"></span></button>
-      </form>
+    <!-- Full-bleed, parallax -->
+    <section class="section--tight">
+      <figure class="pfig pfig--cine fullbleed" data-reveal>
+        <img data-parallax="0.1" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-3.jpg" alt="Slab collection — retail rollout">
+      </figure>
+      <div class="wrap"><div class="pcap" data-reveal><span class="pcap__name">Slab · Retail Rollout</span><span class="pcap__tag meta">2025 · Large-scale production · Multi-site</span></div></div>
     </section>
+
+    <!-- Horizontal scroll strip -->
+    <section class="section wrap">
+      <div class="section-head"><div><p class="meta" data-reveal>More work</p><h2 data-reveal>In production &amp; delivered</h2></div><span class="meta" data-reveal>Scroll →</span></div>
+      <div class="pstrip" data-reveal>
+        <figure><div class="pfig"><img data-parallax="0.06" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-front.jpg" alt="Project"></div><div class="pcap"><span class="pcap__name" style="font-size:1.1rem">Aurea Suite</span><span class="meta">2025</span></div></figure>
+        <figure><div class="pfig"><img data-parallax="0.06" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-angle2.jpg" alt="Project"></div><div class="pcap"><span class="pcap__name" style="font-size:1.1rem">Vera Terrace</span><span class="meta">2025</span></div></figure>
+        <figure><div class="pfig"><img data-parallax="0.06" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-back.jpg" alt="Project"></div><div class="pcap"><span class="pcap__name" style="font-size:1.1rem">Office N</span><span class="meta">2024</span></div></figure>
+        <figure><div class="pfig"><img data-parallax="0.06" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Project"></div><div class="pcap"><span class="pcap__name" style="font-size:1.1rem">Studio Line</span><span class="meta">2024</span></div></figure>
+        <figure><div class="pfig"><img data-parallax="0.06" src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Project"></div><div class="pcap"><span class="pcap__name" style="font-size:1.1rem">Atrium</span><span class="meta">2024</span></div></figure>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="block-dark bleed">
+      <div class="section wrap center">
+        <h2 class="display upper" data-reveal>Have a project?</h2>
+        <p class="lead" data-reveal data-reveal-delay="1" style="margin:1.5rem auto 0;color:var(--c-on-dark)">From a single competition piece to hundreds of units — Neldra can design, develop and produce it.</p>
+        <p data-reveal data-reveal-delay="2" style="margin-top:2.5rem"><a class="btn btn--on-dark" href="contract.html">Start a project</a></p>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <span class="brand">NELDRA</span>
-          <p class="body-soft" style="font-size:.85rem;max-width:32ch">Furniture design &amp; production. Made to order. Delivered worldwide.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Shop</h4>
-          <ul><li><a class="link" href="shop.html">All pieces</a></li><li><a class="link" href="shop.html">Collection 01</a></li><li><a class="link" href="shop.html">Collection 02</a></li><li><a class="link" href="shop.html">Collection 03</a></li></ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contract</h4>
-          <ul><li><a class="link" href="contract.html">Start a project</a></li><li><a class="link" href="contract.html">Capabilities</a></li><li><a class="link" href="projects.html">Projects</a></li></ul>
-        </div>
-        <div class="footer-col">
-          <h4>Studio</h4>
-          <ul><li><a class="link" href="#about">About</a></li><li><a class="link" href="#">Contact</a></li><li><a class="link" href="#">Care &amp; warranty</a></li><li><a class="link" href="#">Shipping</a></li></ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 Neldra — All rights reserved</span>
-        <span class="lang-switch" data-lang>
-          <button aria-pressed="true">EN</button>
-          <button aria-pressed="false">HU</button>
-        </span>
-      </div>
-    </div>
-  </footer>
-
+  <footer class="site-footer"><div class="wrap"><div class="footer-bottom" style="border:0;margin:0"><span>© 2026 Neldra</span><span class="lang-switch" data-lang><button aria-pressed="true">EN</button><button aria-pressed="false">HU</button></span></div></div></footer>
   <script>
 /* ==========================================================================
    NELDRA — interactions

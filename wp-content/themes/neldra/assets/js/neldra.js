@@ -273,6 +273,39 @@
   }
 
   /* ----------------------------------------------------------------------
+     Parallax — subtle scroll translation for oversized images.
+     Reference position is the (untransformed) parent frame, so there is no
+     feedback loop. Disabled under reduced motion.
+     ---------------------------------------------------------------------- */
+  function initParallax() {
+    if (reduce) return;
+    var els = $$("[data-parallax]");
+    if (!els.length) return;
+    var ticking = false;
+
+    function update() {
+      var vh = window.innerHeight;
+      els.forEach(function (el) {
+        var host = el.parentElement;
+        var r = host.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        var speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
+        var y = -(r.top + r.height / 2 - vh / 2) * speed;
+        var max = r.height * 0.12;
+        if (y > max) y = max; else if (y < -max) y = -max;
+        el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+      });
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+  }
+
+  /* ----------------------------------------------------------------------
      Collections — 3-panel split that expands toward the pointer
      ---------------------------------------------------------------------- */
   function initCollections() {
@@ -373,6 +406,7 @@
     initSwatches();
     initLightbox();
     initCollections();
+    initParallax();
     initNewsletter();
     initLang();
   });

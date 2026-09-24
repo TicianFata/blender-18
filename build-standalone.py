@@ -56,6 +56,6 @@ def build(src_name):
     out.write_text(html)
     return out, len(html.encode())
 
-for page in ["index.html", "shop.html", "product.html", "contract.html"]:
+for page in ["index.html", "shop.html", "product.html", "contract.html", "projects.html"]:
     out, size = build(page)
     print(f"{out.relative_to(ROOT)}  ({size//1024} KB)")
