@@ -7,7 +7,7 @@
   <meta name="description" content="Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.">
   <link rel="preload" as="font" type="font/woff2" href="wp-content/themes/neldra/assets/fonts/jost-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="wp-content/themes/neldra/assets/fonts/montserrat-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="wp-content/themes/neldra/assets/css/neldra.css?v=4">
+  <link rel="stylesheet" href="wp-content/themes/neldra/assets/css/neldra.css?v=5">
 </head>
 <body data-page="home">
   <a class="btn--ghost" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
@@ -198,10 +198,14 @@
       </div>
     </section>
 
-    <!-- ===== About strip ===== -->
-    <section class="section--tight wrap center" id="about">
-      <p class="lead" data-reveal style="margin-inline:auto">“Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.”</p>
-      <p data-reveal data-reveal-delay="1" style="margin-top:2rem"><a class="btn" href="#about">About the studio</a></p>
+    <!-- ===== Newsletter ===== -->
+    <section class="newsletter wrap center" id="newsletter">
+      <h2 class="display" data-reveal>Be the First to Know</h2>
+      <p class="newsletter__sub" data-reveal data-reveal-delay="1">…about new collections and special offers.</p>
+      <form class="newsletter__form" data-reveal data-reveal-delay="2" data-newsletter>
+        <input type="email" name="email" class="newsletter__input" placeholder="Email address" aria-label="Email address" required>
+        <button type="submit" class="newsletter__btn" aria-label="Subscribe"><span class="arrow"></span></button>
+      </form>
     </section>
   </main>
 
@@ -236,6 +240,6 @@
     </div>
   </footer>
 
-  <script src="wp-content/themes/neldra/assets/js/neldra.js?v=4"></script>
+  <script src="wp-content/themes/neldra/assets/js/neldra.js?v=5"></script>
 </body>
 </html>

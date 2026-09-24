@@ -273,6 +273,31 @@
   }
 
   /* ----------------------------------------------------------------------
+     Newsletter / email collector (prototype: confirm inline)
+     ---------------------------------------------------------------------- */
+  function initNewsletter() {
+    $$("[data-newsletter]").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var input = $(".newsletter__input", form);
+        if (input && input.checkValidity && !input.checkValidity()) {
+          input.reportValidity();
+          return;
+        }
+        var section = form.parentElement;
+        form.style.display = "none";
+        var msg = $(".newsletter__msg", section);
+        if (!msg) {
+          msg = document.createElement("p");
+          msg.className = "newsletter__msg";
+          section.appendChild(msg);
+        }
+        msg.textContent = "Thank you — you're on the list.";
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
      Language switch (visual only in the prototype)
      ---------------------------------------------------------------------- */
   function initLang() {
@@ -322,6 +347,7 @@
     initQty();
     initSwatches();
     initLightbox();
+    initNewsletter();
     initLang();
   });
 })();

@@ -446,6 +446,53 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   padding-block: var(--section-y);
   text-align: center;
 }
+
+/* Newsletter / email collector */
+.newsletter { padding-block: var(--section-y); }
+.newsletter .display { max-width: 20ch; margin-inline: auto; }
+.newsletter__sub {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-size: var(--fs-small);
+  letter-spacing: .03em;
+  color: var(--c-text-soft);
+}
+.newsletter__form {
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  max-width: 620px;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border: 1px solid rgba(22, 22, 22, .22);
+  border-radius: 999px;
+  padding: .4rem .4rem .4rem clamp(1.25rem, 3vw, 1.9rem);
+  transition: border-color var(--dur-base) var(--ease-soft);
+}
+.newsletter__form:focus-within { border-color: var(--c-text); }
+.newsletter__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-small);
+  letter-spacing: .03em;
+  color: var(--c-text);
+  padding: .95rem .25rem;
+}
+.newsletter__input::placeholder { color: var(--c-grey-mid); }
+.newsletter__input:focus { outline: none; }
+.newsletter__btn {
+  flex: none;
+  width: 3rem; height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background var(--dur-base) var(--ease-soft);
+}
+.newsletter__btn:hover { background: var(--c-bg-soft); }
+.newsletter__btn:hover .arrow { transform: translateX(3px); }
+.newsletter__btn .arrow { margin: 0; width: 1.4em; transition: transform var(--dur-base) var(--ease-brand); }
+.newsletter__msg { margin-top: clamp(1.25rem, 3vw, 2rem); font-size: var(--fs-small); color: var(--c-text-soft); }
 .statement .display { max-width: 18ch; margin-inline: auto; }
 .statement .lead { margin: var(--sp-6) auto 0; text-align: center; }
 
@@ -1086,10 +1133,14 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
       </div>
     </section>
 
-    <!-- ===== About strip ===== -->
-    <section class="section--tight wrap center" id="about">
-      <p class="lead" data-reveal style="margin-inline:auto">“Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.”</p>
-      <p data-reveal data-reveal-delay="1" style="margin-top:2rem"><a class="btn" href="#about">About the studio</a></p>
+    <!-- ===== Newsletter ===== -->
+    <section class="newsletter wrap center" id="newsletter">
+      <h2 class="display" data-reveal>Be the First to Know</h2>
+      <p class="newsletter__sub" data-reveal data-reveal-delay="1">…about new collections and special offers.</p>
+      <form class="newsletter__form" data-reveal data-reveal-delay="2" data-newsletter>
+        <input type="email" name="email" class="newsletter__input" placeholder="Email address" aria-label="Email address" required>
+        <button type="submit" class="newsletter__btn" aria-label="Subscribe"><span class="arrow"></span></button>
+      </form>
     </section>
   </main>
 
@@ -1400,6 +1451,31 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   }
 
   /* ----------------------------------------------------------------------
+     Newsletter / email collector (prototype: confirm inline)
+     ---------------------------------------------------------------------- */
+  function initNewsletter() {
+    $$("[data-newsletter]").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var input = $(".newsletter__input", form);
+        if (input && input.checkValidity && !input.checkValidity()) {
+          input.reportValidity();
+          return;
+        }
+        var section = form.parentElement;
+        form.style.display = "none";
+        var msg = $(".newsletter__msg", section);
+        if (!msg) {
+          msg = document.createElement("p");
+          msg.className = "newsletter__msg";
+          section.appendChild(msg);
+        }
+        msg.textContent = "Thank you — you're on the list.";
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
      Language switch (visual only in the prototype)
      ---------------------------------------------------------------------- */
   function initLang() {
@@ -1449,6 +1525,7 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
     initQty();
     initSwatches();
     initLightbox();
+    initNewsletter();
     initLang();
   });
 })();

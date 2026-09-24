@@ -87,10 +87,14 @@ $img          = NELDRA_URI . '/assets/img';
 		</div>
 	</section>
 
-	<!-- About strip -->
-	<section class="section--tight wrap center" id="about">
-		<p class="lead" data-reveal style="margin-inline:auto">&ldquo;<?php esc_html_e( 'Neldra is a furniture design and production studio with a direct-to-consumer collection and a project-based Contract division.', 'neldra' ); ?>&rdquo;</p>
-		<p data-reveal data-reveal-delay="1" style="margin-top:2rem"><a class="btn" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About the studio', 'neldra' ); ?></a></p>
+	<!-- Newsletter -->
+	<section class="newsletter wrap center" id="newsletter">
+		<h2 class="display" data-reveal><?php esc_html_e( 'Be the First to Know', 'neldra' ); ?></h2>
+		<p class="newsletter__sub" data-reveal data-reveal-delay="1"><?php esc_html_e( '…about new collections and special offers.', 'neldra' ); ?></p>
+		<form class="newsletter__form" data-reveal data-reveal-delay="2" data-newsletter method="post" action="">
+			<input type="email" name="email" class="newsletter__input" placeholder="<?php esc_attr_e( 'Email address', 'neldra' ); ?>" aria-label="<?php esc_attr_e( 'Email address', 'neldra' ); ?>" required>
+			<button type="submit" class="newsletter__btn" aria-label="<?php esc_attr_e( 'Subscribe', 'neldra' ); ?>"><span class="arrow"></span></button>
+		</form>
 	</section>
 
 </main>
