@@ -601,6 +601,10 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   padding: clamp(1.5rem, 4vw, 4rem);
 }
 .pdp__figure img, .pdp__figure svg { width: 100%; height: 100%; object-fit: contain; }
+.pdp__figure img { cursor: zoom-in; }
+.pdp__figure--main { aspect-ratio: 3 / 2; padding: clamp(1rem, 2.5vw, 2.5rem); }
+/* Large stacked detail shots (~half-page width in the gallery column) */
+.pdp__figure--detail { aspect-ratio: 3 / 2; padding: clamp(.4rem, 1.4vw, 1.2rem); }
 .pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 .pdp__price { font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--sp-2); }
 .pdp__row { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-4); }
@@ -633,6 +637,78 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   transition: max-height var(--dur-base) var(--ease-brand);
 }
 .acc__body > div { padding-bottom: 1.6rem; color: var(--c-text-soft); font-size: var(--fs-small); }
+
+/* Lightbox / image zoom (product gallery) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-brand), visibility var(--dur-base);
+}
+.lightbox.is-open { opacity: 1; visibility: visible; }
+.lightbox__stage {
+  margin: 0;
+  width: min(90vw, 1400px);
+  height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-soft);
+}
+.lightbox__stage img.is-ready { opacity: 1; }
+.lightbox__close {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2.2rem);
+  right: clamp(1rem, 3vw, 2.2rem);
+  font-size: var(--fs-meta);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px; height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text);
+}
+.lightbox__nav::before {
+  content: "";
+  width: 15px; height: 15px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+}
+.lightbox__nav--prev { left: clamp(.25rem, 2vw, 2rem); }
+.lightbox__nav--next { right: clamp(.25rem, 2vw, 2rem); }
+.lightbox__nav--prev::before { transform: rotate(-135deg); }
+.lightbox__nav--next::before { transform: rotate(45deg); }
+.lightbox__nav:hover { opacity: .55; }
+.lightbox__count {
+  position: absolute;
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-meta);
+  letter-spacing: .2em;
+  color: var(--c-text-soft);
+  font-variant-numeric: tabular-nums;
+}
 
 /* --------------------------------------------------------------------------
    13. Footer
@@ -805,10 +881,10 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 
   <main id="main">
     <!-- Hero statement over dark architectural image -->
-    <section class="hero" data-hero style="display:block;height:92svh">
-      <div class="panel panel--contract" style="flex:none;height:100%">
+    <section class="hero" data-hero style="display:block;min-height:100svh">
+      <div class="panel panel--contract" style="flex:none;min-height:100svh;align-items:center">
         <div class="panel__media"><div class="ph ph--contract"></div><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJBcmNoaXRlY3R1cmFsIGludGVyaW9yIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBzbGljZSI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjRmNGYzIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMjIiPgogICAgPCEtLSByb29tIHBlcnNwZWN0aXZlIC0tPgogICAgPHBhdGggZD0iTTAgMTUwIEwxMjAwIDE1MCIvPgogICAgPHBhdGggZD0iTTAgNjkwIEwxMjAwIDY5MCIvPgogICAgPHBhdGggZD0iTTE1MCAwIEwxNTAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCAwIEwxMDUwIDgwMCIvPgogICAgPCEtLSBmbG9vciBsaW5lcyAtLT4KICAgIDxwYXRoIGQ9Ik0xNTAgNjkwIEw0MjAgODAwIi8+CiAgICA8cGF0aCBkPSJNMTA1MCA2OTAgTDc4MCA4MDAiLz4KICAgIDxwYXRoIGQ9Ik0zMjAgNjkwIEwzNjAgODAwIi8+CiAgICA8cGF0aCBkPSJNODgwIDY5MCBMODQwIDgwMCIvPgogICAgPCEtLSBsYXJnZSB3aW5kb3cgZ3JpZCBvbiB0aGUgYmFjayB3YWxsIC0tPgogICAgPHBhdGggZD0iTTMwMCAxOTAgTDkwMCAxOTAgTDkwMCA1NjAgTDMwMCA1NjAgWiIvPgogICAgPHBhdGggZD0iTTQ1MCAxOTAgTDQ1MCA1NjAiLz4KICAgIDxwYXRoIGQ9Ik02MDAgMTkwIEw2MDAgNTYwIi8+CiAgICA8cGF0aCBkPSJNNzUwIDE5MCBMNzUwIDU2MCIvPgogICAgPHBhdGggZD0iTTMwMCAzMjAgTDkwMCAzMjAiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNDQwIEw5MDAgNDQwIi8+CiAgPC9nPgogIDwhLS0gbG9uZyBsb3cgc29mYSBzaWxob3VldHRlIC0tPgogIDxnIG9wYWNpdHk9IjAuNTUiPgogICAgPHJlY3QgeD0iMzYwIiB5PSI2MDAiIHdpZHRoPSI0ODAiIGhlaWdodD0iNzAiIHJ4PSI2IiBmaWxsPSIjMGEwYTBhIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjU2MCIgd2lkdGg9IjQ0MCIgaGVpZ2h0PSI0OCIgcng9IjEwIiBmaWxsPSIjMTAxMDEwIi8+CiAgICA8cmVjdCB4PSIzODAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI1MjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgICA8cmVjdCB4PSI2NjAiIHk9IjUxNiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjMTQxNDE0Ii8+CiAgPC9nPgo8L3N2Zz4K" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85"></div>
-        <div class="panel__label wrap" style="max-width:var(--wrap)">
+        <div class="panel__label wrap" style="max-width:var(--wrap);padding-top:clamp(7rem,14vh,10rem);padding-bottom:clamp(5rem,10vh,8rem)">
           <span class="meta">Neldra Contract</span>
           <span class="panel__title" style="font-size:clamp(2.6rem,7vw,6.5rem)">Furniture for projects,<br>at scale</span>
           <span class="panel__intro" style="opacity:.9;transform:none;max-width:44ch">For architecture, hospitality, hotels, restaurants, offices, residential, retail and developers.</span>
@@ -1090,6 +1166,78 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   }
 
   /* ----------------------------------------------------------------------
+     Lightbox / image zoom (product gallery)
+     Click any gallery image -> full-screen single image, with ✕ close and
+     prev/next arrows (also arrow keys + Escape).
+     ---------------------------------------------------------------------- */
+  function initLightbox() {
+    var gallery = $(".pdp__gallery");
+    if (!gallery) return;
+    var imgs = $$("img", gallery);
+    if (!imgs.length) return;
+
+    var slides = imgs.map(function (im) {
+      return { src: im.getAttribute("src"), alt: im.getAttribute("alt") || "" };
+    });
+
+    var lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Image viewer");
+    lb.innerHTML =
+      '<button class="lightbox__close" data-lb-close aria-label="Close">Close &times;</button>' +
+      '<button class="lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="Previous image"></button>' +
+      '<figure class="lightbox__stage"><img alt=""></figure>' +
+      '<button class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="Next image"></button>' +
+      '<span class="lightbox__count"></span>';
+    document.body.appendChild(lb);
+
+    var big   = $("img", lb);
+    var count = $(".lightbox__count", lb);
+    var idx = 0;
+
+    function show(i) {
+      idx = (i + slides.length) % slides.length;
+      big.classList.remove("is-ready");
+      var s = slides[idx];
+      var tmp = new Image();
+      tmp.onload = function () { big.classList.add("is-ready"); };
+      big.src = s.src;
+      big.alt = s.alt;
+      tmp.src = s.src;
+      if (tmp.complete) big.classList.add("is-ready");
+      count.textContent = (idx + 1) + " / " + slides.length;
+    }
+    function open(i) {
+      show(i);
+      lb.classList.add("is-open");
+      document.documentElement.style.overflow = "hidden";
+    }
+    function close() {
+      lb.classList.remove("is-open");
+      document.documentElement.style.overflow = "";
+    }
+
+    imgs.forEach(function (im, i) {
+      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
+    });
+    $("[data-lb-close]", lb).addEventListener("click", close);
+    $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });
+    $("[data-lb-next]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx + 1); });
+    lb.addEventListener("click", function (e) {
+      // click on the empty backdrop (not a control or the image) closes
+      if (e.target === lb || e.target.classList.contains("lightbox__stage")) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(idx - 1);
+      else if (e.key === "ArrowRight") show(idx + 1);
+    });
+  }
+
+  /* ----------------------------------------------------------------------
      Language switch (visual only in the prototype)
      ---------------------------------------------------------------------- */
   function initLang() {
@@ -1138,6 +1286,7 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
     initAccordion();
     initQty();
     initSwatches();
+    initLightbox();
     initLang();
   });
 })();

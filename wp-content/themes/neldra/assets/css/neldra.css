@@ -545,6 +545,10 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   padding: clamp(1.5rem, 4vw, 4rem);
 }
 .pdp__figure img, .pdp__figure svg { width: 100%; height: 100%; object-fit: contain; }
+.pdp__figure img { cursor: zoom-in; }
+.pdp__figure--main { aspect-ratio: 3 / 2; padding: clamp(1rem, 2.5vw, 2.5rem); }
+/* Large stacked detail shots (~half-page width in the gallery column) */
+.pdp__figure--detail { aspect-ratio: 3 / 2; padding: clamp(.4rem, 1.4vw, 1.2rem); }
 .pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 .pdp__price { font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--sp-2); }
 .pdp__row { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-4); }
@@ -577,6 +581,78 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   transition: max-height var(--dur-base) var(--ease-brand);
 }
 .acc__body > div { padding-bottom: 1.6rem; color: var(--c-text-soft); font-size: var(--fs-small); }
+
+/* Lightbox / image zoom (product gallery) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-brand), visibility var(--dur-base);
+}
+.lightbox.is-open { opacity: 1; visibility: visible; }
+.lightbox__stage {
+  margin: 0;
+  width: min(90vw, 1400px);
+  height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-soft);
+}
+.lightbox__stage img.is-ready { opacity: 1; }
+.lightbox__close {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2.2rem);
+  right: clamp(1rem, 3vw, 2.2rem);
+  font-size: var(--fs-meta);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px; height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text);
+}
+.lightbox__nav::before {
+  content: "";
+  width: 15px; height: 15px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+}
+.lightbox__nav--prev { left: clamp(.25rem, 2vw, 2rem); }
+.lightbox__nav--next { right: clamp(.25rem, 2vw, 2rem); }
+.lightbox__nav--prev::before { transform: rotate(-135deg); }
+.lightbox__nav--next::before { transform: rotate(45deg); }
+.lightbox__nav:hover { opacity: .55; }
+.lightbox__count {
+  position: absolute;
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-meta);
+  letter-spacing: .2em;
+  color: var(--c-text-soft);
+  font-variant-numeric: tabular-nums;
+}
 
 /* --------------------------------------------------------------------------
    13. Footer

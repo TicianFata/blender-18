@@ -199,6 +199,78 @@
   }
 
   /* ----------------------------------------------------------------------
+     Lightbox / image zoom (product gallery)
+     Click any gallery image -> full-screen single image, with ✕ close and
+     prev/next arrows (also arrow keys + Escape).
+     ---------------------------------------------------------------------- */
+  function initLightbox() {
+    var gallery = $(".pdp__gallery");
+    if (!gallery) return;
+    var imgs = $$("img", gallery);
+    if (!imgs.length) return;
+
+    var slides = imgs.map(function (im) {
+      return { src: im.getAttribute("src"), alt: im.getAttribute("alt") || "" };
+    });
+
+    var lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Image viewer");
+    lb.innerHTML =
+      '<button class="lightbox__close" data-lb-close aria-label="Close">Close &times;</button>' +
+      '<button class="lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="Previous image"></button>' +
+      '<figure class="lightbox__stage"><img alt=""></figure>' +
+      '<button class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="Next image"></button>' +
+      '<span class="lightbox__count"></span>';
+    document.body.appendChild(lb);
+
+    var big   = $("img", lb);
+    var count = $(".lightbox__count", lb);
+    var idx = 0;
+
+    function show(i) {
+      idx = (i + slides.length) % slides.length;
+      big.classList.remove("is-ready");
+      var s = slides[idx];
+      var tmp = new Image();
+      tmp.onload = function () { big.classList.add("is-ready"); };
+      big.src = s.src;
+      big.alt = s.alt;
+      tmp.src = s.src;
+      if (tmp.complete) big.classList.add("is-ready");
+      count.textContent = (idx + 1) + " / " + slides.length;
+    }
+    function open(i) {
+      show(i);
+      lb.classList.add("is-open");
+      document.documentElement.style.overflow = "hidden";
+    }
+    function close() {
+      lb.classList.remove("is-open");
+      document.documentElement.style.overflow = "";
+    }
+
+    imgs.forEach(function (im, i) {
+      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
+    });
+    $("[data-lb-close]", lb).addEventListener("click", close);
+    $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });
+    $("[data-lb-next]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx + 1); });
+    lb.addEventListener("click", function (e) {
+      // click on the empty backdrop (not a control or the image) closes
+      if (e.target === lb || e.target.classList.contains("lightbox__stage")) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(idx - 1);
+      else if (e.key === "ArrowRight") show(idx + 1);
+    });
+  }
+
+  /* ----------------------------------------------------------------------
      Language switch (visual only in the prototype)
      ---------------------------------------------------------------------- */
   function initLang() {
@@ -247,6 +319,7 @@
     initAccordion();
     initQty();
     initSwatches();
+    initLightbox();
     initLang();
   });
 })();
