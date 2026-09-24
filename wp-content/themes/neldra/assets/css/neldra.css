@@ -533,8 +533,8 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
    -------------------------------------------------------------------------- */
 .pdp {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: clamp(2rem, 5vw, 6rem);
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(3rem, 7vw, 9rem);   /* more air between gallery and info column */
   align-items: start;
 }
 .pdp__gallery { display: grid; gap: var(--sp-4); }
@@ -556,6 +556,7 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   /* distance from the gallery column's left edge to the viewport's left edge */
   --pull: calc(var(--gutter) + max(0px, (100vw - var(--wrap)) / 2));
   margin-left: calc(-1 * var(--pull));
+  margin-top: clamp(2.5rem, 5vw, 5rem);   /* space above the detail stack */
   width: calc(100% + var(--pull));
   display: flex;
   flex-direction: column;
