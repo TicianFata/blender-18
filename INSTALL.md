@@ -96,12 +96,14 @@ The theme uses a drop-in slot for the licensed **TRT Cenzo** file. Once you have
 ## Editing your content (no code) — Appearance → Customize
 Every piece of copy and each placeholder image is now editable in **Appearance → Customize**, with live preview. Panels:
 
-- **Homepage** — Hero (Shop side / Contract side: eyebrow, title, intro, CTA, **image**), Brand statement, Featured heading, **Collections split** (3 panels: label, meta, **image**), Contract teaser (titles, lead, button, **image**), Projects teaser, Newsletter.
+- **Appearance & colors** — the whole palette via colour pickers (background, soft background, greys, text, secondary text, dark sections, text-on-dark, cold accent). **Layout & spacing** — content max-width + section rhythm (Compact / Default / Spacious).
+- **Homepage** — Hero (Shop side / Contract side: eyebrow, title, intro, CTA, **image**), Brand statement, Featured heading, **Collections split** (3 panels: label, meta, **image**), Contract teaser (titles, lead, button, **image**), Projects teaser, Newsletter — **plus a "Section order & visibility" panel** to show/hide and reorder every homepage section.
+- **Shop page** — eyebrow, title, intro, **default column count (2–5)**, and a toggle for the density switch.
 - **Contract page** — Hero (+ **image**), "What Neldra can do" (all 6 rows), Service levels (all 3), Process (all 6 steps), Request-form headings.
 - **Projects page** — Hero + all 5 category rows/counts, closing CTA.
 - **Footer** — tagline.
 
-Images use a normal media picker (upload or choose from the library). Leave a field blank to fall back to the built-in default.
+Images use a normal media picker (upload or choose from the library). Leave a field blank to fall back to the built-in default. Colour/spacing changes apply site-wide instantly (live preview).
 
 Also editable as usual:
 - **Products, prices, variants, stock, orders, coupons** → WooCommerce.

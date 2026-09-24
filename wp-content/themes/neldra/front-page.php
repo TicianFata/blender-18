@@ -1,19 +1,49 @@
 <?php
 /**
- * Front page — split-screen entrance + editorial sections.
- * All copy/images are editable in Appearance → Customize → Homepage.
+ * Front page — split-screen hero + reorderable editorial sections.
+ * Copy, images, colours, spacing, section order & visibility are all editable
+ * in Appearance → Customize.
  *
  * @package Neldra
  */
 get_header();
-
-$shop_url     = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
-$contract_url = home_url( '/contract/' );
-$img          = NELDRA_URI . '/assets/img';
 ?>
 <main id="main">
+	<?php
+	neldra_home_hero();
 
-	<!-- Split-screen hero -->
+	// Render the toggleable sections in the order set in the Customizer.
+	$map = array(
+		'statement'       => 'neldra_home_statement',
+		'featured'        => 'neldra_home_featured',
+		'collections'     => 'neldra_home_collections',
+		'contract_teaser' => 'neldra_home_contract_teaser',
+		'projects_teaser' => 'neldra_home_projects_teaser',
+		'newsletter'      => 'neldra_home_newsletter',
+	);
+	$ordered = array();
+	foreach ( $map as $id => $cb ) {
+		if ( neldra_mod( 'home_show_' . $id ) ) {
+			$ordered[ $id ] = (int) neldra_mod( 'home_order_' . $id );
+		}
+	}
+	asort( $ordered );
+	foreach ( array_keys( $ordered ) as $id ) {
+		call_user_func( $map[ $id ] );
+	}
+	?>
+</main>
+<?php
+get_footer();
+
+/* ---------------------------------------------------------------------------
+ * Homepage section partials
+ * ------------------------------------------------------------------------- */
+
+function neldra_home_hero() {
+	$shop_url     = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	$contract_url = home_url( '/contract/' );
+	?>
 	<section class="hero" data-hero aria-label="<?php esc_attr_e( 'Choose Shop or Contract', 'neldra' ); ?>">
 		<a class="panel panel--shop" data-panel="shop" href="<?php echo esc_url( $shop_url ); ?>">
 			<div class="panel__media">
@@ -41,14 +71,21 @@ $img          = NELDRA_URI . '/assets/img';
 		</a>
 		<div class="scroll-hint" aria-hidden="true"><span><?php esc_html_e( 'Scroll', 'neldra' ); ?></span><i></i></div>
 	</section>
+	<?php
+}
 
-	<!-- Brand statement -->
+function neldra_home_statement() {
+	?>
 	<section class="statement wrap">
 		<h1 class="display upper" data-reveal><?php echo esc_html( neldra_mod( 'st_line1' ) ); ?><br><?php echo esc_html( neldra_mod( 'st_line2' ) ); ?></h1>
 		<p class="lead" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'st_lead' ) ); ?></p>
 	</section>
+	<?php
+}
 
-	<!-- Featured pieces -->
+function neldra_home_featured() {
+	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	?>
 	<section class="section wrap" aria-label="<?php esc_attr_e( 'Featured pieces', 'neldra' ); ?>">
 		<div class="section-head">
 			<div>
@@ -57,12 +94,14 @@ $img          = NELDRA_URI . '/assets/img';
 			</div>
 			<a class="link meta" href="<?php echo esc_url( $shop_url ); ?>" data-reveal><?php echo esc_html( neldra_mod( 'ft_link' ) ); ?> <i class="arrow"></i></a>
 		</div>
-		<div class="grid grid--3">
-			<?php neldra_featured_products( 3 ); ?>
-		</div>
+		<div class="grid grid--3"><?php neldra_featured_products( 3 ); ?></div>
 	</section>
+	<?php
+}
 
-	<!-- Collections (3-panel split, expands on hover) -->
+function neldra_home_collections() {
+	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	?>
 	<section class="section wrap" aria-label="<?php esc_attr_e( 'Collections', 'neldra' ); ?>">
 		<div class="section-head">
 			<div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'col_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'col_heading' ) ); ?></h2></div>
@@ -82,8 +121,12 @@ $img          = NELDRA_URI . '/assets/img';
 			?>
 		</div>
 	</section>
+	<?php
+}
 
-	<!-- Contract teaser -->
+function neldra_home_contract_teaser() {
+	$contract_url = home_url( '/contract/' );
+	?>
 	<section class="block-dark bleed" id="contract" aria-label="<?php esc_attr_e( 'Contract', 'neldra' ); ?>">
 		<div class="contract-teaser wrap">
 			<div class="panel__media" style="opacity:.5">
@@ -97,19 +140,23 @@ $img          = NELDRA_URI . '/assets/img';
 			</div>
 		</div>
 	</section>
+	<?php
+}
 
-	<!-- Projects teaser -->
+function neldra_home_projects_teaser() {
+	?>
 	<section class="section wrap" id="projects" aria-label="<?php esc_attr_e( 'Projects', 'neldra' ); ?>">
 		<div class="section-head">
 			<div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'pt_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'pt_heading' ) ); ?></h2></div>
 			<a class="link meta" href="<?php echo esc_url( home_url( '/projects/' ) ); ?>" data-reveal><?php echo esc_html( neldra_mod( 'pt_link' ) ); ?> <i class="arrow"></i></a>
 		</div>
-		<div class="grid grid--2">
-			<?php neldra_featured_projects( 2 ); ?>
-		</div>
+		<div class="grid grid--2"><?php neldra_featured_projects( 2 ); ?></div>
 	</section>
+	<?php
+}
 
-	<!-- Newsletter -->
+function neldra_home_newsletter() {
+	?>
 	<section class="newsletter wrap center" id="newsletter">
 		<h2 class="display" data-reveal><?php echo esc_html( neldra_mod( 'nl_heading' ) ); ?></h2>
 		<p class="newsletter__sub" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'nl_sub' ) ); ?></p>
@@ -118,25 +165,18 @@ $img          = NELDRA_URI . '/assets/img';
 			<button type="submit" class="newsletter__btn" aria-label="<?php esc_attr_e( 'Subscribe', 'neldra' ); ?>"><span class="arrow"></span></button>
 		</form>
 	</section>
+	<?php
+}
 
-</main>
-<?php
-get_footer();
+/* ---------------------------------------------------------------------------
+ * Product / project card helpers
+ * ------------------------------------------------------------------------- */
 
-/**
- * Render featured product cards, or placeholders if WooCommerce/products absent.
- */
 function neldra_featured_products( $count = 3 ) {
 	$img = NELDRA_URI . '/assets/img';
 	$rendered = 0;
-
 	if ( post_type_exists( 'product' ) ) {
-		$q = new WP_Query( array(
-			'post_type'      => 'product',
-			'posts_per_page' => $count,
-			'orderby'        => 'date',
-			'order'          => 'DESC',
-		) );
+		$q = new WP_Query( array( 'post_type' => 'product', 'posts_per_page' => $count, 'orderby' => 'date', 'order' => 'DESC' ) );
 		if ( $q->have_posts() ) {
 			$i = 0;
 			while ( $q->have_posts() ) {
@@ -154,7 +194,6 @@ function neldra_featured_products( $count = 3 ) {
 			wp_reset_postdata();
 		}
 	}
-
 	$fallback = array(
 		array( 'N01 · Platform Sofa', '€ 8,400', 'n01-angle.jpg' ),
 		array( 'N02 · Sectional', '€ 11,200', 'n01-front.jpg' ),
@@ -169,9 +208,6 @@ function neldra_featured_products( $count = 3 ) {
 	}
 }
 
-/**
- * Render project cards, or placeholders if none exist yet.
- */
 function neldra_featured_projects( $count = 2 ) {
 	$rendered = 0;
 	if ( post_type_exists( 'project' ) ) {
@@ -193,10 +229,7 @@ function neldra_featured_projects( $count = 2 ) {
 			wp_reset_postdata();
 		}
 	}
-	$fallback = array(
-		array( 'Hotel Aurea', 'Budapest · 2025' ),
-		array( 'Maison Vera', 'Vienna · 2025' ),
-	);
+	$fallback = array( array( 'Hotel Aurea', 'Budapest · 2025' ), array( 'Maison Vera', 'Vienna · 2025' ) );
 	for ( $j = $rendered; $j < $count; $j++ ) {
 		$f = $fallback[ $j % 2 ];
 		printf(

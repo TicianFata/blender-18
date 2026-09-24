@@ -192,8 +192,130 @@ function neldra_customizer_config() {
 		),
 	);
 
+	/* ---- Appearance: colors + layout ---- */
+	$cfg['neldra_appearance'] = array(
+		'label'    => __( 'Appearance & colors', 'neldra' ),
+		'sections' => array(
+			'colors' => array( 'label' => __( 'Colors', 'neldra' ), 'fields' => neldra_color_fields() ),
+			'layout' => array( 'label' => __( 'Layout & spacing', 'neldra' ), 'fields' => array(
+				'layout_width'   => array( 'type' => 'number', 'label' => 'Content max width (px)', 'default' => 1600, 'input_attrs' => array( 'min' => 1000, 'max' => 2200, 'step' => 20 ) ),
+				'layout_spacing' => array( 'type' => 'select', 'label' => 'Section spacing (vertical rhythm)', 'default' => 'default', 'choices' => array( 'compact' => 'Compact', 'default' => 'Default', 'spacious' => 'Spacious' ) ),
+			) ),
+		),
+	);
+
+	/* ---- Shop page ---- */
+	$cfg['neldra_shop'] = array(
+		'label'    => __( 'Shop page', 'neldra' ),
+		'sections' => array(
+			'shop' => array( 'label' => __( 'Shop header & grid', 'neldra' ), 'fields' => array(
+				'sh_eyebrow' => array( 'type' => 'text', 'label' => 'Eyebrow', 'default' => 'The Collection' ),
+				'sh_title'   => array( 'type' => 'text', 'label' => 'Title', 'default' => 'Shop' ),
+				'sh_lead'    => array( 'type' => 'textarea', 'label' => 'Intro', 'default' => 'Thirty finished pieces, produced specifically for each order. Set the density that suits how you like to browse.' ),
+				'sh_columns' => array( 'type' => 'select', 'label' => 'Default columns', 'default' => '3', 'choices' => array( '2' => '2 columns', '3' => '3 columns', '4' => '4 columns', '5' => '5 columns' ) ),
+				'sh_density' => array( 'type' => 'checkbox', 'label' => 'Show the density switch', 'default' => true ),
+			) ),
+		),
+	);
+
+	/* ---- Homepage: section order & visibility ---- */
+	$place = array();
+	$pos   = 1;
+	foreach ( neldra_home_sections() as $id => $label ) {
+		$place[ 'home_show_' . $id ]  = array( 'type' => 'checkbox', 'label' => sprintf( 'Show: %s', $label ), 'default' => true );
+		$place[ 'home_order_' . $id ] = array( 'type' => 'number', 'label' => sprintf( 'Order: %s', $label ), 'default' => $pos * 10, 'input_attrs' => array( 'min' => 1, 'max' => 99, 'step' => 1 ) );
+		$pos++;
+	}
+	$cfg['neldra_home']['sections']['placement'] = array( 'label' => __( 'Section order & visibility', 'neldra' ), 'fields' => $place );
+
 	return $cfg;
 }
+
+/**
+ * Reorderable / toggleable homepage sections (the hero is always first).
+ */
+function neldra_home_sections() {
+	return array(
+		'statement'       => __( 'Brand statement', 'neldra' ),
+		'featured'        => __( 'Featured pieces', 'neldra' ),
+		'collections'     => __( 'Collections split', 'neldra' ),
+		'contract_teaser' => __( 'Contract teaser', 'neldra' ),
+		'projects_teaser' => __( 'Projects teaser', 'neldra' ),
+		'newsletter'      => __( 'Newsletter', 'neldra' ),
+	);
+}
+
+/**
+ * Editable colour palette → mapped to CSS variables (see neldra_inline_css).
+ */
+function neldra_color_fields() {
+	return array(
+		'color_bg'         => array( 'type' => 'color', 'label' => 'Background (white)', 'default' => '#FFFFFF' ),
+		'color_bg_soft'    => array( 'type' => 'color', 'label' => 'Soft background', 'default' => '#F7F7F6' ),
+		'color_grey_light' => array( 'type' => 'color', 'label' => 'Light grey (lines)', 'default' => '#E8E9EA' ),
+		'color_grey_mid'   => array( 'type' => 'color', 'label' => 'Mid grey', 'default' => '#A5A7A9' ),
+		'color_text'       => array( 'type' => 'color', 'label' => 'Text (charcoal)', 'default' => '#161616' ),
+		'color_text_soft'  => array( 'type' => 'color', 'label' => 'Secondary text', 'default' => '#6B6C6E' ),
+		'color_dark'       => array( 'type' => 'color', 'label' => 'Dark sections', 'default' => '#131313' ),
+		'color_on_dark'    => array( 'type' => 'color', 'label' => 'Text on dark', 'default' => '#F4F4F3' ),
+		'color_accent'     => array( 'type' => 'color', 'label' => 'Cold accent', 'default' => '#8A97A0' ),
+	);
+}
+
+/** Sanitizers for the extra control types. */
+function neldra_sanitize_checkbox( $v ) { return ( isset( $v ) && ( true === $v || '1' === $v || 1 === $v ) ) ? 1 : 0; }
+function neldra_sanitize_number( $v ) { return is_numeric( $v ) ? $v + 0 : 0; }
+
+/** Convert #rrggbb to "r, g, b". */
+function neldra_hex_to_rgb( $hex ) {
+	$hex = ltrim( (string) $hex, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	if ( 6 !== strlen( $hex ) ) {
+		return '22, 22, 22';
+	}
+	return hexdec( substr( $hex, 0, 2 ) ) . ', ' . hexdec( substr( $hex, 2, 2 ) ) . ', ' . hexdec( substr( $hex, 4, 2 ) );
+}
+
+/**
+ * Output the editable colours + layout as CSS variables, right after the theme
+ * stylesheet, so they override the defaults without changing the .css file.
+ */
+function neldra_inline_css() {
+	$spacing_map = array(
+		'compact'  => 'clamp(3.5rem, 8vw, 7rem)',
+		'default'  => 'clamp(5rem, 12vw, 12rem)',
+		'spacious' => 'clamp(7rem, 16vw, 16rem)',
+	);
+	$spacing = neldra_mod( 'layout_spacing' );
+	$section_y = isset( $spacing_map[ $spacing ] ) ? $spacing_map[ $spacing ] : $spacing_map['default'];
+	$width = (int) neldra_mod( 'layout_width' );
+	$text  = neldra_mod( 'color_text' );
+	$rgb   = neldra_hex_to_rgb( $text );
+
+	$css  = ':root{';
+	$css .= '--c-bg:' . esc_html( neldra_mod( 'color_bg' ) ) . ';';
+	$css .= '--c-bg-soft:' . esc_html( neldra_mod( 'color_bg_soft' ) ) . ';';
+	$css .= '--c-grey-light:' . esc_html( neldra_mod( 'color_grey_light' ) ) . ';';
+	$css .= '--c-grey-mid:' . esc_html( neldra_mod( 'color_grey_mid' ) ) . ';';
+	$css .= '--c-text:' . esc_html( $text ) . ';';
+	$css .= '--c-text-soft:' . esc_html( neldra_mod( 'color_text_soft' ) ) . ';';
+	$css .= '--c-dark:' . esc_html( neldra_mod( 'color_dark' ) ) . ';';
+	$css .= '--c-on-dark:' . esc_html( neldra_mod( 'color_on_dark' ) ) . ';';
+	$css .= '--c-accent:' . esc_html( neldra_mod( 'color_accent' ) ) . ';';
+	$css .= '--c-line:rgba(' . $rgb . ',.10);';
+	$css .= '--c-line-soft:rgba(' . $rgb . ',.06);';
+	$css .= '--wrap:' . ( $width ? $width : 1600 ) . 'px;';
+	$css .= '--section-y:' . $section_y . ';';
+	$css .= '}';
+	return $css;
+}
+add_action( 'wp_enqueue_scripts', function () {
+	if ( wp_style_is( 'neldra', 'enqueued' ) ) {
+		wp_add_inline_style( 'neldra', neldra_inline_css() );
+	}
+}, 20 );
 
 /**
  * Flatten config to key => default for fast reads in templates.
@@ -243,9 +365,16 @@ function neldra_customize_register( $wp_customize ) {
 			) );
 			foreach ( $section['fields'] as $key => $field ) {
 				$type = $field['type'];
-				$sanitize = 'sanitize_text_field';
-				if ( 'textarea' === $type ) { $sanitize = 'neldra_sanitize_textarea'; }
-				elseif ( 'url' === $type || 'image' === $type ) { $sanitize = 'esc_url_raw'; }
+				switch ( $type ) {
+					case 'textarea': $sanitize = 'neldra_sanitize_textarea'; break;
+					case 'url':
+					case 'image':   $sanitize = 'esc_url_raw'; break;
+					case 'color':   $sanitize = 'sanitize_hex_color'; break;
+					case 'checkbox':$sanitize = 'neldra_sanitize_checkbox'; break;
+					case 'number':
+					case 'range':   $sanitize = 'neldra_sanitize_number'; break;
+					default:        $sanitize = 'sanitize_text_field';
+				}
 
 				$wp_customize->add_setting( $key, array(
 					'default'           => $field['default'],
@@ -255,16 +384,31 @@ function neldra_customize_register( $wp_customize ) {
 
 				if ( 'image' === $type ) {
 					$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $key, array(
-						'label'   => $field['label'],
-						'section' => $full_section,
-						'settings'=> $key,
+						'label'    => $field['label'],
+						'section'  => $full_section,
+						'settings' => $key,
+					) ) );
+				} elseif ( 'color' === $type ) {
+					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
+						'label'    => $field['label'],
+						'section'  => $full_section,
+						'settings' => $key,
 					) ) );
 				} else {
-					$wp_customize->add_control( $key, array(
+					$args = array(
 						'label'   => $field['label'],
 						'section' => $full_section,
-						'type'    => 'textarea' === $type ? 'textarea' : ( 'url' === $type ? 'url' : 'text' ),
-					) );
+						'type'    => 'text',
+					);
+					if ( 'textarea' === $type ) { $args['type'] = 'textarea'; }
+					elseif ( 'url' === $type ) { $args['type'] = 'url'; }
+					elseif ( 'checkbox' === $type ) { $args['type'] = 'checkbox'; }
+					elseif ( 'select' === $type ) { $args['type'] = 'select'; $args['choices'] = $field['choices']; }
+					elseif ( 'number' === $type ) { $args['type'] = 'number'; }
+					elseif ( 'range' === $type ) { $args['type'] = 'range'; }
+					if ( isset( $field['input_attrs'] ) ) { $args['input_attrs'] = $field['input_attrs']; }
+					if ( isset( $field['description'] ) ) { $args['description'] = $field['description']; }
+					$wp_customize->add_control( $key, $args );
 				}
 			}
 		}

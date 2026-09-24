@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NELDRA_VERSION', '0.9.0' );
+define( 'NELDRA_VERSION', '1.0.0' );
 define( 'NELDRA_DIR', get_template_directory() );
 define( 'NELDRA_URI', get_template_directory_uri() );
 
@@ -152,25 +152,47 @@ function neldra_contract_cta() {
 	);
 }
 
+// Default column count for the shop grid (editable in Customize → Shop page).
+function neldra_shop_columns() {
+	$c = (int) neldra_mod( 'sh_columns' );
+	return ( $c >= 2 && $c <= 5 ) ? $c : 3;
+}
+
 // Shop/collection loop wrapper -> our grid markup (enables the density switch).
 add_filter( 'woocommerce_product_loop_start', function ( $html ) {
-	return '<ul class="products grid grid--3" data-grid>';
+	return '<ul class="products grid grid--' . esc_attr( neldra_shop_columns() ) . '" data-grid>';
 } );
 
-// Inject the 2/3/4/5 grid-density control above the product grid.
-add_action( 'woocommerce_before_shop_loop', 'neldra_grid_control', 25 );
-function neldra_grid_control() {
+// Hide WooCommerce's default page title — we render our own editable intro.
+add_filter( 'woocommerce_show_page_title', '__return_false' );
+
+// Editable shop intro (eyebrow + title + lead), inside the products header.
+add_action( 'woocommerce_archive_description', 'neldra_shop_intro', 20 );
+function neldra_shop_intro() {
 	if ( ! is_shop() && ! is_product_taxonomy() ) {
 		return;
 	}
+	echo '<div class="shop-intro" data-reveal>';
+	echo '<p class="meta">' . esc_html( neldra_mod( 'sh_eyebrow' ) ) . '</p>';
+	echo '<h1 class="display upper">' . esc_html( neldra_mod( 'sh_title' ) ) . '</h1>';
+	$lead = neldra_mod( 'sh_lead' );
+	if ( $lead ) {
+		echo '<p class="lead">' . esc_html( $lead ) . '</p>';
+	}
+	echo '</div>';
+}
+
+// Grid-density control (2/3/4/5) — toggleable, default from the Customizer.
+add_action( 'woocommerce_before_shop_loop', 'neldra_grid_control', 25 );
+function neldra_grid_control() {
+	if ( ( ! is_shop() && ! is_product_taxonomy() ) || ! neldra_mod( 'sh_density' ) ) {
+		return;
+	}
+	$active = neldra_shop_columns();
 	echo '<div class="grid-control" data-grid-control style="margin-bottom:2.5rem">';
 	echo '<span class="grid-control__label">' . esc_html__( 'Density', 'neldra' ) . '</span>';
 	foreach ( array( 2, 3, 4, 5 ) as $n ) {
-		printf(
-			'<button data-cols="%1$d" aria-pressed="%2$s">%1$d</button>',
-			$n,
-			3 === $n ? 'true' : 'false'
-		);
+		printf( '<button data-cols="%1$d" aria-pressed="%2$s">%1$d</button>', $n, $n === $active ? 'true' : 'false' );
 	}
 	echo '</div>';
 }

@@ -1137,3 +1137,9 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
    become phantom cells and shove the first product over. Remove them. */
 .woocommerce ul.products.grid::before,
 .woocommerce ul.products.grid::after { content: none; display: none; }
+
+
+/* Shop header (editable intro) */
+.woocommerce-products-header { margin: 0; padding: 0; }
+.shop-intro { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 2.5vw, 2rem); }
+.shop-intro .lead { margin-top: var(--sp-3); }
