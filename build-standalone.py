@@ -32,6 +32,9 @@ sofa = svg_data("sofa.svg")
 interior = svg_data("interior.svg")
 
 PREFIX = "wp-content/themes/neldra/assets"
+# Product photos are large; reference them from the public repo raw URL
+# instead of base64-embedding megabytes into every standalone file.
+RAW_IMG = "https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/"
 
 def build(src_name):
     html = (ROOT / src_name).read_text()
@@ -43,7 +46,9 @@ def build(src_name):
     # inline script
     html = re.sub(r'<script src="[^"]*neldra\.js"></script>',
                   lambda _: f'<script>\n{js}\n</script>', html)
-    # inline images
+    # product photos -> raw repo URL (keeps standalone files small)
+    html = html.replace(f'{PREFIX}/img/products/', RAW_IMG + 'products/')
+    # inline the small vector placeholders as data URIs (offline-friendly)
     html = html.replace(f'{PREFIX}/img/sofa.svg', sofa)
     html = html.replace(f'{PREFIX}/img/interior.svg', interior)
     out = ROOT / "standalone" / src_name

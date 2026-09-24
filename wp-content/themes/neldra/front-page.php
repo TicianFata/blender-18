@@ -17,8 +17,7 @@ $img          = NELDRA_URI . '/assets/img';
 	<section class="hero" data-hero aria-label="<?php esc_attr_e( 'Choose Shop or Contract', 'neldra' ); ?>">
 		<a class="panel panel--shop" data-panel="shop" href="<?php echo esc_url( $shop_url ); ?>">
 			<div class="panel__media">
-				<div class="ph ph--shop"><span class="ph__note"><?php esc_html_e( 'Shop image · placeholder', 'neldra' ); ?></span></div>
-				<img src="<?php echo esc_url( $img ); ?>/sofa.svg" alt="" style="position:absolute;left:50%;top:46%;width:62%;transform:translate(-50%,-50%)">
+				<img src="<?php echo esc_url( $img ); ?>/products/n01-angle.jpg" alt="Neldra N01 Platform Sofa" style="position:absolute;left:50%;top:50%;width:84%;transform:translate(-50%,-50%);object-fit:contain">
 			</div>
 			<div class="panel__label">
 				<span class="meta"><?php esc_html_e( 'The Collection', 'neldra' ); ?></span>
@@ -119,7 +118,7 @@ function neldra_featured_products( $count = 3 ) {
 				$i++;
 				$product = function_exists( 'wc_get_product' ) ? wc_get_product( get_the_ID() ) : null;
 				$price   = $product ? $product->get_price_html() : '';
-				$thumb   = has_post_thumbnail() ? get_the_post_thumbnail( get_the_ID(), 'neldra-product', array( 'alt' => get_the_title() ) ) : '<img src="' . esc_url( $img ) . '/sofa.svg" alt="">';
+				$thumb   = has_post_thumbnail() ? get_the_post_thumbnail( get_the_ID(), 'neldra-product', array( 'alt' => get_the_title() ) ) : '<img src="' . esc_url( $img ) . '/products/n01-front.jpg" alt="">';
 				printf(
 					'<a class="product" href="%s" data-reveal data-reveal-delay="%d"><div class="product__media">%s</div><div class="product__meta"><div class="product__name">%s</div><div class="product__price">%s</div><span class="product__tag meta">%s</span></div></a>',
 					esc_url( get_permalink() ), (int) $i, $thumb, esc_html( get_the_title() ), $price, esc_html__( 'Made to order', 'neldra' )
@@ -132,15 +131,15 @@ function neldra_featured_products( $count = 3 ) {
 
 	// Placeholders (single-product prototype state).
 	$fallback = array(
-		array( 'N01 · Platform Sofa', '€ 8,400' ),
-		array( 'N02 · Sectional', '€ 11,200' ),
-		array( 'N03 · Lounge', '€ 6,900' ),
+		array( 'N01 · Platform Sofa', '€ 8,400', 'n01-angle.jpg' ),
+		array( 'N02 · Sectional', '€ 11,200', 'n01-front.jpg' ),
+		array( 'N03 · Lounge', '€ 6,900', 'n01-side.jpg' ),
 	);
 	for ( $j = $rendered; $j < $count; $j++ ) {
 		$f = $fallback[ $j % 3 ];
 		printf(
-			'<a class="product" href="%s" data-reveal data-reveal-delay="%d"><div class="product__media"><img src="%s/sofa.svg" alt="%s"></div><div class="product__meta"><div class="product__name">%s</div><div class="product__price">%s</div><span class="product__tag meta">%s</span></div></a>',
-			esc_url( home_url( '/shop/' ) ), (int) $j, esc_url( $img ), esc_attr( $f[0] ), esc_html( $f[0] ), esc_html( $f[1] ), esc_html__( 'Made to order', 'neldra' )
+			'<a class="product" href="%s" data-reveal data-reveal-delay="%d"><div class="product__media"><img src="%s/products/%s" alt="%s"></div><div class="product__meta"><div class="product__name">%s</div><div class="product__price">%s</div><span class="product__tag meta">%s</span></div></a>',
+			esc_url( home_url( '/shop/' ) ), (int) $j, esc_url( $img ), esc_attr( $f[2] ), esc_attr( $f[0] ), esc_html( $f[0] ), esc_html( $f[1] ), esc_html__( 'Made to order', 'neldra' )
 		);
 	}
 }
