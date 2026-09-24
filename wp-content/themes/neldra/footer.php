@@ -10,7 +10,7 @@
 		<div class="footer-grid">
 			<div class="footer-brand">
 				<span class="brand">NELDRA</span>
-				<p class="body-soft" style="font-size:.85rem;max-width:32ch"><?php esc_html_e( 'Furniture design & production. Made to order. Delivered worldwide.', 'neldra' ); ?></p>
+				<p class="body-soft" style="font-size:.85rem;max-width:32ch"><?php echo esc_html( neldra_mod( 'fo_tagline' ) ); ?></p>
 			</div>
 			<div class="footer-col">
 				<h4><?php esc_html_e( 'Shop', 'neldra' ); ?></h4>

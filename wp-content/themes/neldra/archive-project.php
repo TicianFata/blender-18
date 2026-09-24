@@ -1,8 +1,7 @@
 <?php
 /**
  * Projects archive — editorial, image-led portfolio with scroll parallax.
- * Mirrors the static prototype (projects.html). Renders `project` posts when
- * they exist, otherwise falls back to placeholder blocks using product photos.
+ * Copy editable in Appearance → Customize → Projects page.
  *
  * @package Neldra
  */
@@ -14,18 +13,16 @@ $contract = home_url( '/contract/' );
 <main id="main" style="padding-top:var(--header-h)">
 
 	<section class="proj-hero wrap">
-		<p class="meta" data-reveal><?php esc_html_e( 'Selected work · Evidence of execution', 'neldra' ); ?></p>
-		<h1 class="hero-title upper" data-reveal data-reveal-delay="1"><?php esc_html_e( 'Projects', 'neldra' ); ?></h1>
-		<p class="lead" data-reveal data-reveal-delay="2"><?php esc_html_e( 'A record of what Neldra has designed, developed and delivered — from competition-winning pieces to large-scale production for hotels, restaurants and architecture.', 'neldra' ); ?></p>
+		<p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'ph_eyebrow' ) ); ?></p>
+		<h1 class="hero-title upper" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'ph_title' ) ); ?></h1>
+		<p class="lead" data-reveal data-reveal-delay="2"><?php echo esc_html( neldra_mod( 'ph_intro' ) ); ?></p>
 	</section>
 
 	<section class="wrap section--tight">
 		<ul class="rows" data-reveal>
-			<li><span class="row__title"><?php esc_html_e( 'Competition-winning designs', 'neldra' ); ?></span><span class="meta">08</span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Custom-made furniture', 'neldra' ); ?></span><span class="meta">24</span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Delivered & sold projects', 'neldra' ); ?></span><span class="meta">40+</span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Large-scale production', 'neldra' ); ?></span><span class="meta">12</span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Hospitality & architecture', 'neldra' ); ?></span><span class="meta">18</span></li>
+			<?php for ( $i = 1; $i <= 5; $i++ ) : ?>
+				<li><span class="row__title"><?php echo esc_html( neldra_mod( "pc{$i}_t" ) ); ?></span><span class="meta"><?php echo esc_html( neldra_mod( "pc{$i}_c" ) ); ?></span></li>
+			<?php endfor; ?>
 		</ul>
 	</section>
 
@@ -54,7 +51,6 @@ $contract = home_url( '/contract/' );
 			</section>
 		<?php endwhile; ?>
 	<?php else : ?>
-		<!-- Placeholder blocks (until real projects are published) -->
 		<section class="section--tight">
 			<figure class="pfig pfig--cine fullbleed" data-reveal><img data-parallax="0.1" src="<?php echo esc_url( $products ); ?>/n01-detail-4.jpg" alt="Hotel Aurea"></figure>
 			<div class="wrap"><div class="pcap" data-reveal><span class="pcap__name">Hotel Aurea — Lounge</span><span class="pcap__tag meta">Budapest · 2025 · Large-scale production · 120 units</span></div></div>
@@ -74,24 +70,11 @@ $contract = home_url( '/contract/' );
 		</section>
 	<?php endif; ?>
 
-	<!-- Recent, horizontal scroll -->
-	<section class="section wrap">
-		<div class="section-head"><div><p class="meta" data-reveal><?php esc_html_e( 'More work', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'In production & delivered', 'neldra' ); ?></h2></div><span class="meta" data-reveal><?php esc_html_e( 'Scroll →', 'neldra' ); ?></span></div>
-		<div class="pstrip" data-reveal>
-			<?php
-			$strip = array( 'n01-front.jpg', 'n01-angle2.jpg', 'n01-back.jpg', 'n01-detail-1.jpg', 'n01-detail-4.jpg' );
-			foreach ( $strip as $s ) {
-				printf( '<figure><div class="pfig"><img data-parallax="0.06" src="%s/%s" alt=""></div></figure>', esc_url( $products ), esc_attr( $s ) );
-			}
-			?>
-		</div>
-	</section>
-
 	<section class="block-dark bleed">
 		<div class="section wrap center">
-			<h2 class="display upper" data-reveal><?php esc_html_e( 'Have a project?', 'neldra' ); ?></h2>
-			<p class="lead" data-reveal data-reveal-delay="1" style="margin:1.5rem auto 0;color:var(--c-on-dark)"><?php esc_html_e( 'From a single competition piece to hundreds of units — Neldra can design, develop and produce it.', 'neldra' ); ?></p>
-			<p data-reveal data-reveal-delay="2" style="margin-top:2.5rem"><a class="btn btn--on-dark" href="<?php echo esc_url( $contract ); ?>"><?php esc_html_e( 'Start a project', 'neldra' ); ?></a></p>
+			<h2 class="display upper" data-reveal><?php echo esc_html( neldra_mod( 'pcta_heading' ) ); ?></h2>
+			<p class="lead" data-reveal data-reveal-delay="1" style="margin:1.5rem auto 0;color:var(--c-on-dark)"><?php echo esc_html( neldra_mod( 'pcta_lead' ) ); ?></p>
+			<p data-reveal data-reveal-delay="2" style="margin-top:2.5rem"><a class="btn btn--on-dark" href="<?php echo esc_url( $contract ); ?>"><?php echo esc_html( neldra_mod( 'pcta_btn' ) ); ?></a></p>
 		</div>
 	</section>
 

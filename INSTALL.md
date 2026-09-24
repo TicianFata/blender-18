@@ -93,15 +93,24 @@ The theme uses a drop-in slot for the licensed **TRT Cenzo** file. Once you have
 
 ---
 
-## What you can edit yourself (no code)
+## Editing your content (no code) — Appearance → Customize
+Every piece of copy and each placeholder image is now editable in **Appearance → Customize**, with live preview. Panels:
+
+- **Homepage** — Hero (Shop side / Contract side: eyebrow, title, intro, CTA, **image**), Brand statement, Featured heading, **Collections split** (3 panels: label, meta, **image**), Contract teaser (titles, lead, button, **image**), Projects teaser, Newsletter.
+- **Contract page** — Hero (+ **image**), "What Neldra can do" (all 6 rows), Service levels (all 3), Process (all 6 steps), Request-form headings.
+- **Projects page** — Hero + all 5 category rows/counts, closing CTA.
+- **Footer** — tagline.
+
+Images use a normal media picker (upload or choose from the library). Leave a field blank to fall back to the built-in default.
+
+Also editable as usual:
 - **Products, prices, variants, stock, orders, coupons** → WooCommerce.
-- **Projects** → the Projects post type.
-- **About** (and any normal page) → the block editor.
-- **Menus, site title, logo** → Appearance → Menus / Customize.
+- **Projects** (case studies) → the **Projects** post type (title, excerpt, featured image; optional `location` / `year` / `category` custom fields).
+- **About** / any normal page → the block editor.
+- **Menus, site title, logo** → Appearance → Menus / Customize → Site Identity.
 - **Collections** grouping → Products → Collections.
 
-## What currently lives in the template code (ask to make no-code)
-The **homepage hero copy**, the **Collections panel images/labels**, the **Contract page wording**, and the **newsletter text** are coded into the templates for pixel-perfect control. If you want to edit these from the admin too, the next step is to add **ACF fields / a Customizer panel** for them — say the word and I'll wire that in so everything is editable without touching code.
+> Tip: the **Contract "Start a Project" form** and the **newsletter** still need a plugin connected to actually receive submissions (see steps 12–13). Everything else is fully editable from the dashboard.
 
 ---
 

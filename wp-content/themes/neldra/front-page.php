@@ -1,7 +1,7 @@
 <?php
 /**
- * Front page — the split-screen entrance + editorial sections.
- * Mirrors the static prototype (index.html) using theme data.
+ * Front page — split-screen entrance + editorial sections.
+ * All copy/images are editable in Appearance → Customize → Homepage.
  *
  * @package Neldra
  */
@@ -17,25 +17,26 @@ $img          = NELDRA_URI . '/assets/img';
 	<section class="hero" data-hero aria-label="<?php esc_attr_e( 'Choose Shop or Contract', 'neldra' ); ?>">
 		<a class="panel panel--shop" data-panel="shop" href="<?php echo esc_url( $shop_url ); ?>">
 			<div class="panel__media">
-				<img src="<?php echo esc_url( $img ); ?>/products/n01-angle.jpg" alt="Neldra N01 Platform Sofa" style="position:absolute;left:50%;top:50%;width:84%;transform:translate(-50%,-50%);object-fit:contain">
+				<div class="ph ph--shop"></div>
+				<img src="<?php echo esc_url( neldra_mod( 'hs_image' ) ); ?>" alt="<?php echo esc_attr( neldra_mod( 'hs_title' ) ); ?>" style="position:absolute;left:50%;top:50%;width:84%;transform:translate(-50%,-50%);object-fit:contain">
 			</div>
 			<div class="panel__label">
-				<span class="meta"><?php esc_html_e( 'The Collection', 'neldra' ); ?></span>
-				<span class="panel__title"><?php esc_html_e( 'Shop', 'neldra' ); ?></span>
-				<span class="panel__intro"><?php esc_html_e( 'Thirty finished pieces across three collections. Made to order, bought online.', 'neldra' ); ?></span>
-				<span class="panel__enter"><?php esc_html_e( 'Enter the shop', 'neldra' ); ?> <i class="arrow"></i></span>
+				<span class="meta"><?php echo esc_html( neldra_mod( 'hs_eyebrow' ) ); ?></span>
+				<span class="panel__title"><?php echo esc_html( neldra_mod( 'hs_title' ) ); ?></span>
+				<span class="panel__intro"><?php echo esc_html( neldra_mod( 'hs_intro' ) ); ?></span>
+				<span class="panel__enter"><?php echo esc_html( neldra_mod( 'hs_cta' ) ); ?> <i class="arrow"></i></span>
 			</div>
 		</a>
 		<a class="panel panel--contract" data-panel="contract" href="<?php echo esc_url( $contract_url ); ?>">
 			<div class="panel__media">
-				<div class="ph ph--contract"><span class="ph__note"><?php esc_html_e( 'Contract image · placeholder', 'neldra' ); ?></span></div>
-				<img src="<?php echo esc_url( $img ); ?>/interior.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+				<div class="ph ph--contract"></div>
+				<img src="<?php echo esc_url( neldra_mod( 'hc_image' ) ); ?>" alt="<?php echo esc_attr( neldra_mod( 'hc_title' ) ); ?>" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
 			</div>
 			<div class="panel__label">
-				<span class="meta"><?php esc_html_e( 'Neldra Contract', 'neldra' ); ?></span>
-				<span class="panel__title"><?php esc_html_e( 'Contract', 'neldra' ); ?></span>
-				<span class="panel__intro"><?php esc_html_e( 'Furniture for projects, at scale — supplied, modified or developed from scratch.', 'neldra' ); ?></span>
-				<span class="panel__enter"><?php esc_html_e( 'Start a project', 'neldra' ); ?> <i class="arrow"></i></span>
+				<span class="meta"><?php echo esc_html( neldra_mod( 'hc_eyebrow' ) ); ?></span>
+				<span class="panel__title"><?php echo esc_html( neldra_mod( 'hc_title' ) ); ?></span>
+				<span class="panel__intro"><?php echo esc_html( neldra_mod( 'hc_intro' ) ); ?></span>
+				<span class="panel__enter"><?php echo esc_html( neldra_mod( 'hc_cta' ) ); ?> <i class="arrow"></i></span>
 			</div>
 		</a>
 		<div class="scroll-hint" aria-hidden="true"><span><?php esc_html_e( 'Scroll', 'neldra' ); ?></span><i></i></div>
@@ -43,18 +44,18 @@ $img          = NELDRA_URI . '/assets/img';
 
 	<!-- Brand statement -->
 	<section class="statement wrap">
-		<h1 class="display upper" data-reveal><?php esc_html_e( 'A furniture design', 'neldra' ); ?><br><?php esc_html_e( '& production studio', 'neldra' ); ?></h1>
-		<p class="lead" data-reveal data-reveal-delay="1"><?php esc_html_e( 'Neldra designs, develops and produces furniture — a direct-to-consumer collection and a project-based Contract division, held together by one quiet, architectural language.', 'neldra' ); ?></p>
+		<h1 class="display upper" data-reveal><?php echo esc_html( neldra_mod( 'st_line1' ) ); ?><br><?php echo esc_html( neldra_mod( 'st_line2' ) ); ?></h1>
+		<p class="lead" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'st_lead' ) ); ?></p>
 	</section>
 
 	<!-- Featured pieces -->
 	<section class="section wrap" aria-label="<?php esc_attr_e( 'Featured pieces', 'neldra' ); ?>">
 		<div class="section-head">
 			<div>
-				<p class="meta" data-reveal><?php esc_html_e( 'Selected', 'neldra' ); ?></p>
-				<h2 data-reveal><?php esc_html_e( 'Featured pieces', 'neldra' ); ?></h2>
+				<p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'ft_eyebrow' ) ); ?></p>
+				<h2 data-reveal><?php echo esc_html( neldra_mod( 'ft_heading' ) ); ?></h2>
 			</div>
-			<a class="link meta" href="<?php echo esc_url( $shop_url ); ?>" data-reveal><?php esc_html_e( 'View all 30', 'neldra' ); ?> <i class="arrow"></i></a>
+			<a class="link meta" href="<?php echo esc_url( $shop_url ); ?>" data-reveal><?php echo esc_html( neldra_mod( 'ft_link' ) ); ?> <i class="arrow"></i></a>
 		</div>
 		<div class="grid grid--3">
 			<?php neldra_featured_products( 3 ); ?>
@@ -64,19 +65,18 @@ $img          = NELDRA_URI . '/assets/img';
 	<!-- Collections (3-panel split, expands on hover) -->
 	<section class="section wrap" aria-label="<?php esc_attr_e( 'Collections', 'neldra' ); ?>">
 		<div class="section-head">
-			<div><p class="meta" data-reveal><?php esc_html_e( 'Three collections · ten pieces each', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'Collections', 'neldra' ); ?></h2></div>
+			<div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'col_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'col_heading' ) ); ?></h2></div>
 		</div>
 		<div class="collections-split" data-reveal>
 			<?php
-			$cols = array(
-				array( 'Collection 01', 'n01-detail-1.jpg' ),
-				array( 'Collection 02', 'n01-detail-4.jpg' ),
-				array( 'Collection 03', 'n01-detail-2.jpg' ),
-			);
-			foreach ( $cols as $c ) {
+			for ( $i = 1; $i <= 3; $i++ ) {
 				printf(
-					'<a class="cpanel" href="%s"><div class="cpanel__media"><img src="%s/products/%s" alt="%s"></div><div class="cpanel__label"><span class="cpanel__name">%s</span><span class="meta">%s</span></div></a>',
-					esc_url( $shop_url ), esc_url( $img ), esc_attr( $c[1] ), esc_attr( $c[0] ), esc_html( $c[0] ), esc_html__( '10 pieces', 'neldra' )
+					'<a class="cpanel" href="%s"><div class="cpanel__media"><img src="%s" alt="%s"></div><div class="cpanel__label"><span class="cpanel__name">%s</span><span class="meta">%s</span></div></a>',
+					esc_url( $shop_url ),
+					esc_url( neldra_mod( "col{$i}_image" ) ),
+					esc_attr( neldra_mod( "col{$i}_label" ) ),
+					esc_html( neldra_mod( "col{$i}_label" ) ),
+					esc_html( neldra_mod( "col{$i}_meta" ) )
 				);
 			}
 			?>
@@ -87,13 +87,13 @@ $img          = NELDRA_URI . '/assets/img';
 	<section class="block-dark bleed" id="contract" aria-label="<?php esc_attr_e( 'Contract', 'neldra' ); ?>">
 		<div class="contract-teaser wrap">
 			<div class="panel__media" style="opacity:.5">
-				<img src="<?php echo esc_url( $img ); ?>/interior.svg" alt="" style="position:absolute;right:0;top:0;width:56%;height:100%;object-fit:cover">
+				<img src="<?php echo esc_url( neldra_mod( 'ct_image' ) ); ?>" alt="" style="position:absolute;right:0;top:0;width:56%;height:100%;object-fit:cover">
 			</div>
 			<div class="contract-teaser__content" style="position:relative;z-index:2">
-				<p class="meta" data-reveal><?php esc_html_e( 'Neldra Contract', 'neldra' ); ?></p>
-				<h2 class="display upper" data-reveal data-reveal-delay="1"><?php esc_html_e( 'Furniture for', 'neldra' ); ?><br><?php esc_html_e( 'projects, at scale', 'neldra' ); ?></h2>
-				<p class="lead" data-reveal data-reveal-delay="2"><?php esc_html_e( 'For architects, hotels, restaurants, offices and developers. Supply existing pieces in quantity, modify a design, or develop entirely new furniture and collections.', 'neldra' ); ?></p>
-				<p data-reveal data-reveal-delay="3" style="margin-top:2.5rem"><a class="btn btn--on-dark" href="<?php echo esc_url( $contract_url ); ?>"><?php esc_html_e( 'Start a project', 'neldra' ); ?></a></p>
+				<p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'ct_eyebrow' ) ); ?></p>
+				<h2 class="display upper" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'ct_title1' ) ); ?><br><?php echo esc_html( neldra_mod( 'ct_title2' ) ); ?></h2>
+				<p class="lead" data-reveal data-reveal-delay="2"><?php echo esc_html( neldra_mod( 'ct_lead' ) ); ?></p>
+				<p data-reveal data-reveal-delay="3" style="margin-top:2.5rem"><a class="btn btn--on-dark" href="<?php echo esc_url( $contract_url ); ?>"><?php echo esc_html( neldra_mod( 'ct_cta' ) ); ?></a></p>
 			</div>
 		</div>
 	</section>
@@ -101,8 +101,8 @@ $img          = NELDRA_URI . '/assets/img';
 	<!-- Projects teaser -->
 	<section class="section wrap" id="projects" aria-label="<?php esc_attr_e( 'Projects', 'neldra' ); ?>">
 		<div class="section-head">
-			<div><p class="meta" data-reveal><?php esc_html_e( 'Evidence of execution', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'Selected projects', 'neldra' ); ?></h2></div>
-			<a class="link meta" href="<?php echo esc_url( home_url( '/projects/' ) ); ?>" data-reveal><?php esc_html_e( 'All projects', 'neldra' ); ?> <i class="arrow"></i></a>
+			<div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'pt_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'pt_heading' ) ); ?></h2></div>
+			<a class="link meta" href="<?php echo esc_url( home_url( '/projects/' ) ); ?>" data-reveal><?php echo esc_html( neldra_mod( 'pt_link' ) ); ?> <i class="arrow"></i></a>
 		</div>
 		<div class="grid grid--2">
 			<?php neldra_featured_projects( 2 ); ?>
@@ -111,8 +111,8 @@ $img          = NELDRA_URI . '/assets/img';
 
 	<!-- Newsletter -->
 	<section class="newsletter wrap center" id="newsletter">
-		<h2 class="display" data-reveal><?php esc_html_e( 'Be the First to Know', 'neldra' ); ?></h2>
-		<p class="newsletter__sub" data-reveal data-reveal-delay="1"><?php esc_html_e( '…about new collections and special offers.', 'neldra' ); ?></p>
+		<h2 class="display" data-reveal><?php echo esc_html( neldra_mod( 'nl_heading' ) ); ?></h2>
+		<p class="newsletter__sub" data-reveal data-reveal-delay="1"><?php echo esc_html( neldra_mod( 'nl_sub' ) ); ?></p>
 		<form class="newsletter__form" data-reveal data-reveal-delay="2" data-newsletter method="post" action="">
 			<input type="email" name="email" class="newsletter__input" placeholder="<?php esc_attr_e( 'Email address', 'neldra' ); ?>" aria-label="<?php esc_attr_e( 'Email address', 'neldra' ); ?>" required>
 			<button type="submit" class="newsletter__btn" aria-label="<?php esc_attr_e( 'Subscribe', 'neldra' ); ?>"><span class="arrow"></span></button>
@@ -155,7 +155,6 @@ function neldra_featured_products( $count = 3 ) {
 		}
 	}
 
-	// Placeholders (single-product prototype state).
 	$fallback = array(
 		array( 'N01 · Platform Sofa', '€ 8,400', 'n01-angle.jpg' ),
 		array( 'N02 · Sectional', '€ 11,200', 'n01-front.jpg' ),
@@ -201,8 +200,8 @@ function neldra_featured_projects( $count = 2 ) {
 	for ( $j = $rendered; $j < $count; $j++ ) {
 		$f = $fallback[ $j % 2 ];
 		printf(
-			'<a class="project" href="%s" data-reveal data-reveal-delay="%d"><div class="project__media"><div class="ph ph--contract" style="position:relative"><span class="ph__note">%s</span></div></div><div class="project__meta"><span class="project__name">%s</span><span class="meta">%s</span></div></a>',
-			esc_url( home_url( '/contract/' ) ), (int) $j, esc_html( $f[0] ), esc_html( $f[0] ), esc_html( $f[1] )
+			'<a class="project" href="%s" data-reveal data-reveal-delay="%d"><div class="project__media"><div class="ph ph--contract" style="position:relative"></div></div><div class="project__meta"><span class="project__name">%s</span><span class="meta">%s</span></div></a>',
+			esc_url( home_url( '/projects/' ) ), (int) $j, esc_html( $f[0] ), esc_html( $f[1] )
 		);
 	}
 }

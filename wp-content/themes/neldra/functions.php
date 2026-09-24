@@ -9,9 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NELDRA_VERSION', '0.8.0' );
+define( 'NELDRA_VERSION', '0.9.0' );
 define( 'NELDRA_DIR', get_template_directory() );
 define( 'NELDRA_URI', get_template_directory_uri() );
+
+// Customizer: makes all site copy + placeholder images editable in wp-admin.
+require_once NELDRA_DIR . '/inc/customizer.php';
 
 /**
  * Theme supports, menus, i18n (EN/HU).

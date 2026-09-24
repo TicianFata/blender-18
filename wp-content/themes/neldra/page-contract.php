@@ -1,72 +1,63 @@
 <?php
 /**
  * Template Name: Contract
- * Contract landing — capability, sectors, service levels, process + project request.
- * Assign this template to a Page (or name the page slug "contract").
+ * Contract landing. All copy/images editable in Appearance → Customize → Contract page.
  *
  * @package Neldra
  */
 get_header();
-$img = NELDRA_URI . '/assets/img';
 ?>
 <main id="main">
 
 	<!-- Hero statement -->
 	<section class="hero" data-hero style="display:block;min-height:100svh">
 		<div class="panel panel--contract" style="flex:none;min-height:100svh;align-items:center">
-			<div class="panel__media"><div class="ph ph--contract"></div><img src="<?php echo esc_url( $img ); ?>/interior.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85"></div>
+			<div class="panel__media"><div class="ph ph--contract"></div><img src="<?php echo esc_url( neldra_mod( 'cph_image' ) ); ?>" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85"></div>
 			<div class="panel__label wrap" style="max-width:var(--wrap);padding-top:clamp(7rem,14vh,10rem);padding-bottom:clamp(5rem,10vh,8rem)">
-				<span class="meta"><?php esc_html_e( 'Neldra Contract', 'neldra' ); ?></span>
-				<span class="panel__title" style="font-size:clamp(2.6rem,7vw,6.5rem)"><?php esc_html_e( 'Furniture for projects,', 'neldra' ); ?><br><?php esc_html_e( 'at scale', 'neldra' ); ?></span>
-				<span class="panel__intro" style="opacity:.9;transform:none;max-width:44ch"><?php esc_html_e( 'For architecture, hospitality, hotels, restaurants, offices, residential, retail and developers.', 'neldra' ); ?></span>
-				<span style="margin-top:1.6rem;display:inline-block"><a class="btn btn--on-dark" href="#start"><?php esc_html_e( 'Start a project', 'neldra' ); ?></a></span>
+				<span class="meta"><?php echo esc_html( neldra_mod( 'cph_eyebrow' ) ); ?></span>
+				<span class="panel__title" style="font-size:clamp(2.6rem,7vw,6.5rem)"><?php echo esc_html( neldra_mod( 'cph_title1' ) ); ?><br><?php echo esc_html( neldra_mod( 'cph_title2' ) ); ?></span>
+				<span class="panel__intro" style="opacity:.9;transform:none;max-width:44ch"><?php echo esc_html( neldra_mod( 'cph_intro' ) ); ?></span>
+				<span style="margin-top:1.6rem;display:inline-block"><a class="btn btn--on-dark" href="#start"><?php echo esc_html( neldra_mod( 'cph_cta' ) ); ?></a></span>
 			</div>
 		</div>
 	</section>
 
 	<!-- What Neldra can do -->
 	<section class="section wrap">
-		<div class="section-head"><div><p class="meta" data-reveal><?php esc_html_e( 'What Neldra can do', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'From one piece to a whole project', 'neldra' ); ?></h2></div></div>
+		<div class="section-head"><div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'cap_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'cap_heading' ) ); ?></h2></div></div>
 		<ul class="rows" data-reveal>
-			<li><span class="row__title"><?php esc_html_e( 'Standard products', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Existing Neldra pieces supplied in project quantity.', 'neldra' ); ?></span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Modified products', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'An existing design adapted to project requirements.', 'neldra' ); ?></span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Custom furniture', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Entirely new furniture developed for the project.', 'neldra' ); ?></span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Custom collections', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Several coherent pieces designed together.', 'neldra' ); ?></span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Large-scale production', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Dozens to hundreds of consistent units.', 'neldra' ); ?></span></li>
-			<li><span class="row__title"><?php esc_html_e( 'Project delivery', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Production, logistics & installation where included.', 'neldra' ); ?></span></li>
+			<?php for ( $i = 1; $i <= 6; $i++ ) : ?>
+				<li><span class="row__title"><?php echo esc_html( neldra_mod( "cap{$i}_t" ) ); ?></span><span class="row__note"><?php echo esc_html( neldra_mod( "cap{$i}_n" ) ); ?></span></li>
+			<?php endfor; ?>
 		</ul>
 	</section>
 
 	<!-- Service levels -->
 	<section class="block-dark bleed">
 		<div class="section wrap">
-			<div class="section-head"><div><p class="meta" data-reveal><?php esc_html_e( 'Three service levels', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'How we work', 'neldra' ); ?></h2></div></div>
+			<div class="section-head"><div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'sl_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'sl_heading' ) ); ?></h2></div></div>
 			<div class="grid grid--3">
-				<div data-reveal><p class="meta"><?php esc_html_e( 'Level 01', 'neldra' ); ?></p><h3 style="margin:.6rem 0"><?php esc_html_e( 'Standard', 'neldra' ); ?></h3><p class="body-soft" style="color:rgba(244,244,243,.6);font-size:.9rem"><?php esc_html_e( 'An existing piece in quantity — quotation, schedule, logistics, coordination.', 'neldra' ); ?></p></div>
-				<div data-reveal data-reveal-delay="1"><p class="meta"><?php esc_html_e( 'Level 02', 'neldra' ); ?></p><h3 style="margin:.6rem 0"><?php esc_html_e( 'Modified', 'neldra' ); ?></h3><p class="body-soft" style="color:rgba(244,244,243,.6);font-size:.9rem"><?php esc_html_e( 'A design adapted to the project after a feasibility assessment.', 'neldra' ); ?></p></div>
-				<div data-reveal data-reveal-delay="2"><p class="meta"><?php esc_html_e( 'Level 03', 'neldra' ); ?></p><h3 style="margin:.6rem 0"><?php esc_html_e( 'Custom', 'neldra' ); ?></h3><p class="body-soft" style="color:rgba(244,244,243,.6);font-size:.9rem"><?php esc_html_e( 'Concept → 3D → engineering → prototype → approval → production.', 'neldra' ); ?></p></div>
+				<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
+					<div data-reveal data-reveal-delay="<?php echo (int) ( $i - 1 ); ?>"><p class="meta"><?php echo esc_html( neldra_mod( "sl{$i}_k" ) ); ?></p><h3 style="margin:.6rem 0"><?php echo esc_html( neldra_mod( "sl{$i}_t" ) ); ?></h3><p class="body-soft" style="color:rgba(244,244,243,.6);font-size:.9rem"><?php echo esc_html( neldra_mod( "sl{$i}_d" ) ); ?></p></div>
+				<?php endfor; ?>
 			</div>
 		</div>
 	</section>
 
 	<!-- Process -->
 	<section class="section wrap">
-		<div class="section-head"><div><p class="meta" data-reveal><?php esc_html_e( 'The custom process', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'From brief to installation', 'neldra' ); ?></h2></div></div>
+		<div class="section-head"><div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'pr_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'pr_heading' ) ); ?></h2></div></div>
 		<ol class="rows" data-reveal>
-			<li><span class="row__title">01 — <?php esc_html_e( 'Brief', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Understand the project.', 'neldra' ); ?></span></li>
-			<li><span class="row__title">02 — <?php esc_html_e( 'Design direction', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Aesthetic, proportions, materials, function.', 'neldra' ); ?></span></li>
-			<li><span class="row__title">03 — <?php esc_html_e( 'Concept & 3D', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Initial concepts and detailed models.', 'neldra' ); ?></span></li>
-			<li><span class="row__title">04 — <?php esc_html_e( 'Technical & quote', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Made manufacturable; project quotation.', 'neldra' ); ?></span></li>
-			<li><span class="row__title">05 — <?php esc_html_e( 'Prototype & approval', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'A physical sample where required.', 'neldra' ); ?></span></li>
-			<li><span class="row__title">06 — <?php esc_html_e( 'Production, QC & logistics', 'neldra' ); ?></span><span class="row__note"><?php esc_html_e( 'Manufacture, inspect, deliver, install.', 'neldra' ); ?></span></li>
+			<?php for ( $i = 1; $i <= 6; $i++ ) : ?>
+				<li><span class="row__title"><?php echo esc_html( sprintf( '%02d — %s', $i, neldra_mod( "pr{$i}" ) ) ); ?></span><span class="row__note"><?php echo esc_html( neldra_mod( "pr{$i}n" ) ); ?></span></li>
+			<?php endfor; ?>
 		</ol>
 	</section>
 
 	<!-- Start a project -->
 	<section class="section--tight wrap" id="start">
-		<div class="section-head"><div><p class="meta" data-reveal><?php esc_html_e( 'Start a project', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'Tell us about your project', 'neldra' ); ?></h2></div></div>
+		<div class="section-head"><div><p class="meta" data-reveal><?php echo esc_html( neldra_mod( 'cf_eyebrow' ) ); ?></p><h2 data-reveal><?php echo esc_html( neldra_mod( 'cf_heading' ) ); ?></h2></div></div>
 		<?php
-		// If a form plugin shortcode is set (Options → see INSTALL.md), render it.
 		$form_shortcode = get_option( 'neldra_contract_form_shortcode' );
 		if ( $form_shortcode ) {
 			echo '<div data-reveal style="max-width:820px">' . do_shortcode( wp_kses_post( $form_shortcode ) ) . '</div>';
