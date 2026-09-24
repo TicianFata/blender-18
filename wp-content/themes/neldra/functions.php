@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NELDRA_VERSION', '0.7.0' );
+define( 'NELDRA_VERSION', '0.8.0' );
 define( 'NELDRA_DIR', get_template_directory() );
 define( 'NELDRA_URI', get_template_directory_uri() );
 
@@ -56,7 +56,12 @@ function neldra_assets() {
 	$css = NELDRA_URI . '/assets/css/neldra.css';
 	$js  = NELDRA_URI . '/assets/js/neldra.js';
 
-	wp_enqueue_style( 'neldra', $css, array(), NELDRA_VERSION );
+	// Load our stylesheet AFTER WooCommerce's, so our overrides win without !important.
+	$deps = array();
+	if ( class_exists( 'WooCommerce' ) ) {
+		$deps = array( 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen' );
+	}
+	wp_enqueue_style( 'neldra', $css, $deps, NELDRA_VERSION );
 
 	wp_enqueue_script( 'neldra', $js, array(), NELDRA_VERSION, true );
 
@@ -137,13 +142,45 @@ function neldra_made_to_order_label() {
 // Secondary "For projects" CTA on the single product page.
 add_action( 'woocommerce_after_add_to_cart_button', 'neldra_contract_cta' );
 function neldra_contract_cta() {
-	$contract = function_exists( 'pll_home_url' ) ? pll_home_url() : home_url( '/contract/' );
 	printf(
 		'<a class="btn" style="margin-top:1rem" href="%s">%s</a>',
 		esc_url( home_url( '/contract/' ) ),
 		esc_html__( 'For projects · Request a project quote', 'neldra' )
 	);
 }
+
+// Shop/collection loop wrapper -> our grid markup (enables the density switch).
+add_filter( 'woocommerce_product_loop_start', function ( $html ) {
+	return '<ul class="products grid grid--3" data-grid>';
+} );
+
+// Inject the 2/3/4/5 grid-density control above the product grid.
+add_action( 'woocommerce_before_shop_loop', 'neldra_grid_control', 25 );
+function neldra_grid_control() {
+	if ( ! is_shop() && ! is_product_taxonomy() ) {
+		return;
+	}
+	echo '<div class="grid-control" data-grid-control style="margin-bottom:2.5rem">';
+	echo '<span class="grid-control__label">' . esc_html__( 'Density', 'neldra' ) . '</span>';
+	foreach ( array( 2, 3, 4, 5 ) as $n ) {
+		printf(
+			'<button data-cols="%1$d" aria-pressed="%2$s">%1$d</button>',
+			$n,
+			3 === $n ? 'true' : 'false'
+		);
+	}
+	echo '</div>';
+}
+
+// Made-to-order line in the single product summary.
+add_action( 'woocommerce_single_product_summary', 'neldra_single_made_to_order', 6 );
+function neldra_single_made_to_order() {
+	echo '<p class="meta" style="margin:.5rem 0 0">' . esc_html__( 'Collection · Made to order', 'neldra' ) . '</p>';
+}
+
+// Cleaner: drop WooCommerce's default result-count/sorting noise on the shop.
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 
 /* -------------------------------------------------------------------------
  * Projects portfolio (Contract case studies)
@@ -193,3 +230,86 @@ function neldra_register_projects() {
  * Year, Sector, Scope, Units) are provided via ACF field groups. Export the
  * ACF JSON into /acf-json when ACF Pro is installed. See docs/05-woocommerce-and-contract.md.
  */
+
+
+/* -------------------------------------------------------------------------
+ * First-run setup: auto-create pages, menu, front page, flush permalinks.
+ * Runs once after the theme is activated so the site matches the design
+ * without manual page creation.
+ * ---------------------------------------------------------------------- */
+add_action( 'after_switch_theme', function () {
+	update_option( 'neldra_needs_setup', 1 );
+} );
+
+add_action( 'init', function () {
+	if ( ! get_option( 'neldra_needs_setup' ) ) {
+		return;
+	}
+	neldra_first_run();
+	delete_option( 'neldra_needs_setup' );
+	flush_rewrite_rules();
+}, 99 );
+
+/**
+ * Create the pages, assign templates, set the front page, and build the menu.
+ */
+function neldra_first_run() {
+	// --- Pages ---
+	$home = neldra_ensure_page( 'home', __( 'Home', 'neldra' ) );
+	$contract = neldra_ensure_page( 'contract', __( 'Contract', 'neldra' ) );
+	if ( $contract ) {
+		update_post_meta( $contract, '_wp_page_template', 'page-contract.php' );
+	}
+	neldra_ensure_page( 'about', __( 'About', 'neldra' ) );
+
+	// --- Static front page ---
+	if ( $home ) {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', $home );
+	}
+
+	// --- Primary menu ---
+	$menu_name = 'Neldra Main';
+	$menu = wp_get_nav_menu_object( $menu_name );
+	if ( ! $menu ) {
+		$menu_id = wp_create_nav_menu( $menu_name );
+		if ( ! is_wp_error( $menu_id ) ) {
+			$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+			$items = array(
+				array( 'title' => __( 'Shop', 'neldra' ),        'url' => $shop_url ),
+				array( 'title' => __( 'Collections', 'neldra' ), 'url' => $shop_url ),
+				array( 'title' => __( 'Contract', 'neldra' ),    'url' => home_url( '/contract/' ) ),
+				array( 'title' => __( 'Projects', 'neldra' ),    'url' => home_url( '/projects/' ) ),
+				array( 'title' => __( 'About', 'neldra' ),       'url' => home_url( '/about/' ) ),
+			);
+			foreach ( $items as $it ) {
+				wp_update_nav_menu_item( $menu_id, 0, array(
+					'menu-item-title'  => $it['title'],
+					'menu-item-url'    => $it['url'],
+					'menu-item-status' => 'publish',
+					'menu-item-type'   => 'custom',
+				) );
+			}
+			$locations = get_theme_mod( 'nav_menu_locations', array() );
+			$locations['primary'] = $menu_id;
+			set_theme_mod( 'nav_menu_locations', $locations );
+		}
+	}
+}
+
+/**
+ * Create a published page by slug if it does not already exist. Returns its ID.
+ */
+function neldra_ensure_page( $slug, $title ) {
+	$existing = get_page_by_path( $slug );
+	if ( $existing ) {
+		return $existing->ID;
+	}
+	return wp_insert_post( array(
+		'post_title'   => $title,
+		'post_name'    => $slug,
+		'post_status'  => 'publish',
+		'post_type'    => 'page',
+		'post_content' => '',
+	) );
+}

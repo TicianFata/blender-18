@@ -34,28 +34,17 @@ Use your host's 1-click WordPress installer (or install manually). Log in at `yo
 2. Choose **`neldra-theme.zip`** → **Install Now** → **Activate**.
    (The theme ships with the fonts and the placeholder sofa photos, so it looks right immediately.)
 
-## 4. Flush permalinks (makes /projects/ etc. work)
-**Settings → Permalinks →** choose **Post name →** **Save Changes**. (Do this once now, and again any time links 404.)
+## 4. Setup is automatic on activation ✨
+As soon as you activate the theme it **auto-creates** everything so the site matches the design:
+- Creates **Home** and sets it as the static front page (split-screen hero).
+- Creates the **Contract** page *with the Contract template already assigned* (hero, capabilities, service levels, process, request form).
+- Creates the **About** page.
+- Builds the **primary menu** — Shop · Collections · Contract · Projects · About — and assigns it.
+- Flushes permalinks so **/contract/**, **/projects/**, **/shop/** all resolve.
 
-## 5. Set the homepage
-1. **Pages → Add New →** title **Home** → Publish.
-2. **Settings → Reading → Your homepage displays → A static page →** Homepage = **Home**.
-   (The theme's `front-page.php` renders the split-screen hero automatically.)
+Then just re-save permalinks once to be safe: **Settings → Permalinks → Save Changes.**
 
-## 6. Create the Contract page (rich layout)
-1. **Pages → Add New →** title **Contract** (this sets the slug `contract`, which the nav links to).
-2. In the sidebar **Page Attributes → Template →** select **Contract**.
-3. **Publish.** (This uses `page-contract.php` — hero, capabilities, service levels, process, request form.)
-
-## 7. Create the About page
-**Pages → Add New →** title **About** → add your text → Publish. (Uses the default page template.)
-
-## 8. Build the menus
-**Appearance → Menus →** Create menu → add these items → set location:
-- **Primary Navigation:** Shop, Collections, Contract, Projects, About.
-  - *Shop* = the WooCommerce Shop page. *Collections* = Shop page (or a custom link `/shop/`). *Projects* = a **Custom Link** to `/projects/`. *Contract* / *About* = your pages.
-- **Footer Navigation:** whatever footer links you want.
-(Until you assign a menu, the theme shows a sensible fallback menu.)
+> It never duplicates: if a page/menu already exists it's reused. Edit or reorder anything under **Pages** / **Appearance → Menus**. Shop & Product pages come from **WooCommerce** (next step) and are already styled to the Neldra design (3-up floating grid + density switch on the shop, gallery-left / info-right + dual CTA on the product).
 
 ## 9. Add products (this fills Shop / Collections / Product pages)
 1. **Products → Categories:** these are your product types (Sofas, Chairs, …) — optional.
