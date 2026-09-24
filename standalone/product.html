@@ -603,8 +603,31 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 .pdp__figure img, .pdp__figure svg { width: 100%; height: 100%; object-fit: contain; }
 .pdp__figure img { cursor: zoom-in; }
 .pdp__figure--main { aspect-ratio: 3 / 2; padding: clamp(1rem, 2.5vw, 2.5rem); }
-/* Large stacked detail shots (~half-page width in the gallery column) */
-.pdp__figure--detail { aspect-ratio: 3 / 2; padding: clamp(.4rem, 1.4vw, 1.2rem); }
+
+/* Front / side / back — a touch larger (less padding, wider ratio) */
+.pdp__trio .pdp__figure { aspect-ratio: 4 / 3; padding: clamp(.4rem, 1.4vw, 1.1rem); }
+
+/* Four detail shots: bleed to the left screen edge, stacked and touching */
+.pdp__details {
+  /* distance from the gallery column's left edge to the viewport's left edge */
+  --pull: calc(var(--gutter) + max(0px, (100vw - var(--wrap)) / 2));
+  margin-left: calc(-1 * var(--pull));
+  width: calc(100% + var(--pull));
+  display: flex;
+  flex-direction: column;
+}
+.pdp__details .pdp__figure--detail {
+  aspect-ratio: auto;
+  padding: 0;      /* image reaches the edges */
+  margin: 0;       /* images touch each other, no gaps */
+  display: block;
+}
+.pdp__details .pdp__figure--detail img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: zoom-in;
+}
 .pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 .pdp__price { font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--sp-2); }
 .pdp__row { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-4); }
@@ -887,16 +910,18 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
           <!-- Main hero: angle -->
           <div class="pdp__figure pdp__figure--main"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-angle.jpg" alt="N01 Platform Sofa — angle"></div>
           <!-- Front / side / back -->
-          <div class="grid grid--3" style="gap:1.25rem">
-            <div class="pdp__figure" style="aspect-ratio:1"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-front.jpg" alt="Front view"></div>
-            <div class="pdp__figure" style="aspect-ratio:1"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-side.jpg" alt="Side view"></div>
-            <div class="pdp__figure" style="aspect-ratio:1"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-back.jpg" alt="Back view"></div>
+          <div class="grid grid--3 pdp__trio" style="gap:1rem">
+            <div class="pdp__figure"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-front.jpg" alt="Front view"></div>
+            <div class="pdp__figure"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-side.jpg" alt="Side view"></div>
+            <div class="pdp__figure"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-back.jpg" alt="Back view"></div>
           </div>
-          <!-- Four large detail shots, stacked -->
-          <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Detail — slab edge"></div>
-          <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-2.jpg" alt="Detail — cushion"></div>
-          <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-3.jpg" alt="Detail — material"></div>
-          <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Detail — corner"></div>
+          <!-- Four large detail shots: full-left-bleed, touching, no gaps -->
+          <div class="pdp__details">
+            <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Detail — slab edge"></div>
+            <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-2.jpg" alt="Detail — cushion"></div>
+            <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-3.jpg" alt="Detail — material"></div>
+            <div class="pdp__figure pdp__figure--detail"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Detail — corner"></div>
+          </div>
         </div>
 
         <div class="pdp__info" data-reveal data-reveal-delay="1">
@@ -1211,8 +1236,14 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
       document.documentElement.style.overflow = "";
     }
 
-    imgs.forEach(function (im, i) {
-      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
+    // Delegated click: works for every image in the gallery, incl. details.
+    gallery.addEventListener("click", function (e) {
+      var im = e.target.closest("img");
+      if (!im || !gallery.contains(im)) return;
+      e.preventDefault();
+      var i = imgs.indexOf(im);
+      if (i < 0) { imgs = $$("img", gallery); i = imgs.indexOf(im); }
+      if (i >= 0) open(i);
     });
     $("[data-lb-close]", lb).addEventListener("click", close);
     $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });

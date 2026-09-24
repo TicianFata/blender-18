@@ -547,8 +547,31 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 .pdp__figure img, .pdp__figure svg { width: 100%; height: 100%; object-fit: contain; }
 .pdp__figure img { cursor: zoom-in; }
 .pdp__figure--main { aspect-ratio: 3 / 2; padding: clamp(1rem, 2.5vw, 2.5rem); }
-/* Large stacked detail shots (~half-page width in the gallery column) */
-.pdp__figure--detail { aspect-ratio: 3 / 2; padding: clamp(.4rem, 1.4vw, 1.2rem); }
+
+/* Front / side / back — a touch larger (less padding, wider ratio) */
+.pdp__trio .pdp__figure { aspect-ratio: 4 / 3; padding: clamp(.4rem, 1.4vw, 1.1rem); }
+
+/* Four detail shots: bleed to the left screen edge, stacked and touching */
+.pdp__details {
+  /* distance from the gallery column's left edge to the viewport's left edge */
+  --pull: calc(var(--gutter) + max(0px, (100vw - var(--wrap)) / 2));
+  margin-left: calc(-1 * var(--pull));
+  width: calc(100% + var(--pull));
+  display: flex;
+  flex-direction: column;
+}
+.pdp__details .pdp__figure--detail {
+  aspect-ratio: auto;
+  padding: 0;      /* image reaches the edges */
+  margin: 0;       /* images touch each other, no gaps */
+  display: block;
+}
+.pdp__details .pdp__figure--detail img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: zoom-in;
+}
 .pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 .pdp__price { font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--sp-2); }
 .pdp__row { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-4); }

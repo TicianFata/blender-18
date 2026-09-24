@@ -252,8 +252,14 @@
       document.documentElement.style.overflow = "";
     }
 
-    imgs.forEach(function (im, i) {
-      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
+    // Delegated click: works for every image in the gallery, incl. details.
+    gallery.addEventListener("click", function (e) {
+      var im = e.target.closest("img");
+      if (!im || !gallery.contains(im)) return;
+      e.preventDefault();
+      var i = imgs.indexOf(im);
+      if (i < 0) { imgs = $$("img", gallery); i = imgs.indexOf(im); }
+      if (i >= 0) open(i);
     });
     $("[data-lb-close]", lb).addEventListener("click", close);
     $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });

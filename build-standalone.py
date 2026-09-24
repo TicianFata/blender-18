@@ -44,7 +44,7 @@ def build(src_name):
     html = re.sub(r'<link rel="stylesheet"[^>]*>',
                   lambda _: f'<style>\n{css}\n</style>', html)
     # inline script
-    html = re.sub(r'<script src="[^"]*neldra\.js"></script>',
+    html = re.sub(r'<script src="[^"]*neldra\.js[^"]*"></script>',
                   lambda _: f'<script>\n{js}\n</script>', html)
     # product photos -> raw repo URL (keeps standalone files small)
     html = html.replace(f'{PREFIX}/img/products/', RAW_IMG + 'products/')
