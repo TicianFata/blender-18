@@ -589,10 +589,11 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
    -------------------------------------------------------------------------- */
 .pdp {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: clamp(3rem, 7vw, 9rem);   /* more air between gallery and info column */
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(4rem, 9vw, 12rem);   /* generous air between gallery and info column */
   align-items: start;
 }
+.pdp__info h1 { font-size: clamp(1.5rem, 2.5vw, 2.3rem); letter-spacing: .01em; }
 .pdp__gallery { display: grid; gap: var(--sp-4); }
 .pdp__figure {
   aspect-ratio: 4 / 3;
@@ -608,26 +609,32 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 .pdp__trio .pdp__figure { aspect-ratio: 4 / 3; padding: clamp(.4rem, 1.4vw, 1.1rem); }
 
 /* Four detail shots: bleed to the left screen edge, stacked and touching */
-.pdp__details {
-  /* distance from the gallery column's left edge to the viewport's left edge */
+/* Detail shots: their own section (below the 2-col grid), so they never
+   collide with the info column or the related section. Left-bleed, stacked,
+   touching — no gaps. */
+.pdp-details { padding-block: clamp(2rem, 4vw, 4rem) clamp(4rem, 8vw, 8rem); }
+.pdp-details__stack {
+  /* distance from the content's left edge to the viewport's left edge */
   --pull: calc(var(--gutter) + max(0px, (100vw - var(--wrap)) / 2));
   margin-left: calc(-1 * var(--pull));
-  margin-top: clamp(2.5rem, 5vw, 5rem);   /* space above the detail stack */
-  width: calc(100% + var(--pull));
+  width: calc(56% + var(--pull));
   display: flex;
   flex-direction: column;
 }
-.pdp__details .pdp__figure--detail {
+.pdp-details__stack .pdp__figure--detail {
   aspect-ratio: auto;
   padding: 0;      /* image reaches the edges */
   margin: 0;       /* images touch each other, no gaps */
   display: block;
 }
-.pdp__details .pdp__figure--detail img {
+.pdp-details__stack .pdp__figure--detail img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
   cursor: zoom-in;
+}
+@media (max-width: 860px) {
+  .pdp-details__stack { width: calc(100% + var(--pull)); }
 }
 .pdp__info { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 .pdp__price { font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--sp-2); }
@@ -1195,9 +1202,11 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
      prev/next arrows (also arrow keys + Escape).
      ---------------------------------------------------------------------- */
   function initLightbox() {
-    var gallery = $(".pdp__gallery");
-    if (!gallery) return;
-    var imgs = $$("img", gallery);
+    // Collect every product image (gallery + the detail section) in order.
+    var imgs = [];
+    $$(".pdp__gallery, .pdp-details__stack").forEach(function (c) {
+      imgs = imgs.concat($$("img", c));
+    });
     if (!imgs.length) return;
 
     var slides = imgs.map(function (im) {
@@ -1243,14 +1252,8 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
       document.documentElement.style.overflow = "";
     }
 
-    // Delegated click: works for every image in the gallery, incl. details.
-    gallery.addEventListener("click", function (e) {
-      var im = e.target.closest("img");
-      if (!im || !gallery.contains(im)) return;
-      e.preventDefault();
-      var i = imgs.indexOf(im);
-      if (i < 0) { imgs = $$("img", gallery); i = imgs.indexOf(im); }
-      if (i >= 0) open(i);
+    imgs.forEach(function (im, i) {
+      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
     });
     $("[data-lb-close]", lb).addEventListener("click", close);
     $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });

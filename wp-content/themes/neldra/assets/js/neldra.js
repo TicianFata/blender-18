@@ -204,9 +204,11 @@
      prev/next arrows (also arrow keys + Escape).
      ---------------------------------------------------------------------- */
   function initLightbox() {
-    var gallery = $(".pdp__gallery");
-    if (!gallery) return;
-    var imgs = $$("img", gallery);
+    // Collect every product image (gallery + the detail section) in order.
+    var imgs = [];
+    $$(".pdp__gallery, .pdp-details__stack").forEach(function (c) {
+      imgs = imgs.concat($$("img", c));
+    });
     if (!imgs.length) return;
 
     var slides = imgs.map(function (im) {
@@ -252,14 +254,8 @@
       document.documentElement.style.overflow = "";
     }
 
-    // Delegated click: works for every image in the gallery, incl. details.
-    gallery.addEventListener("click", function (e) {
-      var im = e.target.closest("img");
-      if (!im || !gallery.contains(im)) return;
-      e.preventDefault();
-      var i = imgs.indexOf(im);
-      if (i < 0) { imgs = $$("img", gallery); i = imgs.indexOf(im); }
-      if (i >= 0) open(i);
+    imgs.forEach(function (im, i) {
+      im.addEventListener("click", function (e) { e.preventDefault(); open(i); });
     });
     $("[data-lb-close]", lb).addEventListener("click", close);
     $("[data-lb-prev]", lb).addEventListener("click", function (e) { e.stopPropagation(); show(idx - 1); });
