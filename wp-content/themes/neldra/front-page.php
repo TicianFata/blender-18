@@ -61,6 +61,28 @@ $img          = NELDRA_URI . '/assets/img';
 		</div>
 	</section>
 
+	<!-- Collections (3-panel split, expands on hover) -->
+	<section class="section wrap" aria-label="<?php esc_attr_e( 'Collections', 'neldra' ); ?>">
+		<div class="section-head">
+			<div><p class="meta" data-reveal><?php esc_html_e( 'Three collections · ten pieces each', 'neldra' ); ?></p><h2 data-reveal><?php esc_html_e( 'Collections', 'neldra' ); ?></h2></div>
+		</div>
+		<div class="collections-split" data-reveal>
+			<?php
+			$cols = array(
+				array( 'Collection 01', 'n01-detail-1.jpg' ),
+				array( 'Collection 02', 'n01-detail-4.jpg' ),
+				array( 'Collection 03', 'n01-detail-2.jpg' ),
+			);
+			foreach ( $cols as $c ) {
+				printf(
+					'<a class="cpanel" href="%s"><div class="cpanel__media"><img src="%s/products/%s" alt="%s"></div><div class="cpanel__label"><span class="cpanel__name">%s</span><span class="meta">%s</span></div></a>',
+					esc_url( $shop_url ), esc_url( $img ), esc_attr( $c[1] ), esc_attr( $c[0] ), esc_html( $c[0] ), esc_html__( '10 pieces', 'neldra' )
+				);
+			}
+			?>
+		</div>
+	</section>
+
 	<!-- Contract teaser -->
 	<section class="block-dark bleed" id="contract" aria-label="<?php esc_attr_e( 'Contract', 'neldra' ); ?>">
 		<div class="contract-teaser wrap">

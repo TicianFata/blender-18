@@ -273,6 +273,31 @@
   }
 
   /* ----------------------------------------------------------------------
+     Collections — 3-panel split that expands toward the pointer
+     ---------------------------------------------------------------------- */
+  function initCollections() {
+    var split = $(".collections-split");
+    if (!split) return;
+    var panels = $$(".cpanel", split);
+    if (coarse) return; // touch: keep equal; a tap navigates
+
+    function activate(panel) {
+      split.classList.add("is-hovering");
+      panels.forEach(function (p) { p.classList.toggle("is-active", p === panel); });
+    }
+    function clear() {
+      split.classList.remove("is-hovering");
+      panels.forEach(function (p) { p.classList.remove("is-active"); });
+    }
+    panels.forEach(function (panel) {
+      panel.addEventListener("mouseenter", function () { activate(panel); });
+      panel.addEventListener("focus", function () { activate(panel); });
+      panel.addEventListener("blur", clear);
+    });
+    split.addEventListener("mouseleave", clear);
+  }
+
+  /* ----------------------------------------------------------------------
      Newsletter / email collector (prototype: confirm inline)
      ---------------------------------------------------------------------- */
   function initNewsletter() {
@@ -347,6 +372,7 @@
     initQty();
     initSwatches();
     initLightbox();
+    initCollections();
     initNewsletter();
     initLang();
   });

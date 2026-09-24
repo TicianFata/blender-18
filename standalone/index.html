@@ -506,6 +506,67 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 }
 .section-head .meta { margin-bottom: .6rem; }
 
+/* Collections — 3-panel split that expands on hover (hero-style) */
+.collections-split {
+  display: flex;
+  gap: 6px;
+  height: clamp(360px, 52vh, 600px);
+  overflow: hidden;
+}
+.collections-split .cpanel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  color: var(--c-on-dark);
+  transition: flex-grow var(--dur-slow) var(--ease-brand);
+  will-change: flex-grow;
+}
+.cpanel__media { position: absolute; inset: 0; }
+.cpanel__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-brand);
+  will-change: transform;
+}
+/* subtle bottom scrim so the label stays readable over the photo */
+.cpanel::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(17,17,17,.55), rgba(17,17,17,0));
+  z-index: 1;
+  pointer-events: none;
+}
+.cpanel__label {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(1.1rem, 2.4vw, 1.9rem);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cpanel__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.cpanel__label .meta { color: rgba(244,244,243,.75); white-space: nowrap; }
+
+.collections-split.is-hovering .cpanel { flex-grow: .8; }
+.collections-split .cpanel.is-active { flex-grow: 2.4; }
+.collections-split .cpanel.is-active .cpanel__media img { transform: scale(1.05); }
+@media (max-width: 860px) {
+  .collections-split { flex-direction: column; height: auto; }
+  .collections-split .cpanel { height: 220px; }
+}
+
 /* Full-bleed image block (editorial) */
 .figure {
   position: relative;
@@ -1082,18 +1143,18 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
       <div class="section-head">
         <div><p class="meta" data-reveal>Three collections · ten pieces each</p><h2 data-reveal>Collections</h2></div>
       </div>
-      <div class="grid grid--3">
-        <a class="project" href="shop.html" data-reveal>
-          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 01</span></div></div>
-          <div class="project__meta"><span class="project__name">Collection 01</span><span class="meta">10 pieces</span></div>
+      <div class="collections-split" data-reveal>
+        <a class="cpanel" href="shop.html">
+          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-1.jpg" alt="Collection 01"></div>
+          <div class="cpanel__label"><span class="cpanel__name">Collection 01</span><span class="meta">10 pieces</span></div>
         </a>
-        <a class="project" href="shop.html" data-reveal data-reveal-delay="1">
-          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 02</span></div></div>
-          <div class="project__meta"><span class="project__name">Collection 02</span><span class="meta">10 pieces</span></div>
+        <a class="cpanel" href="shop.html">
+          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-4.jpg" alt="Collection 02"></div>
+          <div class="cpanel__label"><span class="cpanel__name">Collection 02</span><span class="meta">10 pieces</span></div>
         </a>
-        <a class="project" href="shop.html" data-reveal data-reveal-delay="2">
-          <div class="project__media"><div class="ph ph--shop" style="position:relative"><span class="ph__note">Collection 03</span></div></div>
-          <div class="project__meta"><span class="project__name">Collection 03</span><span class="meta">10 pieces</span></div>
+        <a class="cpanel" href="shop.html">
+          <div class="cpanel__media"><img src="https://raw.githubusercontent.com/TicianFata/blender-18/main/wp-content/themes/neldra/assets/img/products/n01-detail-2.jpg" alt="Collection 03"></div>
+          <div class="cpanel__label"><span class="cpanel__name">Collection 03</span><span class="meta">10 pieces</span></div>
         </a>
       </div>
     </section>
@@ -1451,6 +1512,31 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
   }
 
   /* ----------------------------------------------------------------------
+     Collections — 3-panel split that expands toward the pointer
+     ---------------------------------------------------------------------- */
+  function initCollections() {
+    var split = $(".collections-split");
+    if (!split) return;
+    var panels = $$(".cpanel", split);
+    if (coarse) return; // touch: keep equal; a tap navigates
+
+    function activate(panel) {
+      split.classList.add("is-hovering");
+      panels.forEach(function (p) { p.classList.toggle("is-active", p === panel); });
+    }
+    function clear() {
+      split.classList.remove("is-hovering");
+      panels.forEach(function (p) { p.classList.remove("is-active"); });
+    }
+    panels.forEach(function (panel) {
+      panel.addEventListener("mouseenter", function () { activate(panel); });
+      panel.addEventListener("focus", function () { activate(panel); });
+      panel.addEventListener("blur", clear);
+    });
+    split.addEventListener("mouseleave", clear);
+  }
+
+  /* ----------------------------------------------------------------------
      Newsletter / email collector (prototype: confirm inline)
      ---------------------------------------------------------------------- */
   function initNewsletter() {
@@ -1525,6 +1611,7 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
     initQty();
     initSwatches();
     initLightbox();
+    initCollections();
     initNewsletter();
     initLang();
   });

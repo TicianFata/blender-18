@@ -449,6 +449,67 @@ h3, .h3     { font-size: var(--fs-h3); letter-spacing: .02em; }
 }
 .section-head .meta { margin-bottom: .6rem; }
 
+/* Collections — 3-panel split that expands on hover (hero-style) */
+.collections-split {
+  display: flex;
+  gap: 6px;
+  height: clamp(360px, 52vh, 600px);
+  overflow: hidden;
+}
+.collections-split .cpanel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  color: var(--c-on-dark);
+  transition: flex-grow var(--dur-slow) var(--ease-brand);
+  will-change: flex-grow;
+}
+.cpanel__media { position: absolute; inset: 0; }
+.cpanel__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-brand);
+  will-change: transform;
+}
+/* subtle bottom scrim so the label stays readable over the photo */
+.cpanel::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(17,17,17,.55), rgba(17,17,17,0));
+  z-index: 1;
+  pointer-events: none;
+}
+.cpanel__label {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(1.1rem, 2.4vw, 1.9rem);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cpanel__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.cpanel__label .meta { color: rgba(244,244,243,.75); white-space: nowrap; }
+
+.collections-split.is-hovering .cpanel { flex-grow: .8; }
+.collections-split .cpanel.is-active { flex-grow: 2.4; }
+.collections-split .cpanel.is-active .cpanel__media img { transform: scale(1.05); }
+@media (max-width: 860px) {
+  .collections-split { flex-direction: column; height: auto; }
+  .collections-split .cpanel { height: 220px; }
+}
+
 /* Full-bleed image block (editorial) */
 .figure {
   position: relative;
