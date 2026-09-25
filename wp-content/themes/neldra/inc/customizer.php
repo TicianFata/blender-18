@@ -200,6 +200,8 @@ function neldra_customizer_config() {
 			'layout' => array( 'label' => __( 'Layout & spacing', 'neldra' ), 'fields' => array(
 				'layout_width'   => array( 'type' => 'number', 'label' => 'Content max width (px)', 'default' => 1600, 'input_attrs' => array( 'min' => 1000, 'max' => 2200, 'step' => 20 ) ),
 				'layout_spacing' => array( 'type' => 'select', 'label' => 'Section spacing (vertical rhythm)', 'default' => 'default', 'choices' => array( 'compact' => 'Compact', 'default' => 'Default', 'spacious' => 'Spacious' ) ),
+				'type_scale'     => array( 'type' => 'range', 'label' => 'Headline size scale', 'default' => '1', 'input_attrs' => array( 'min' => '0.8', 'max' => '1.4', 'step' => '0.05' ) ),
+				'body_size'      => array( 'type' => 'number', 'label' => 'Body text size (px)', 'default' => 16, 'input_attrs' => array( 'min' => 13, 'max' => 20, 'step' => 1 ) ),
 			) ),
 		),
 	);
@@ -214,6 +216,18 @@ function neldra_customizer_config() {
 				'sh_lead'    => array( 'type' => 'textarea', 'label' => 'Intro', 'default' => 'Thirty finished pieces, produced specifically for each order. Set the density that suits how you like to browse.' ),
 				'sh_columns' => array( 'type' => 'select', 'label' => 'Default columns', 'default' => '3', 'choices' => array( '2' => '2 columns', '3' => '3 columns', '4' => '4 columns', '5' => '5 columns' ) ),
 				'sh_density' => array( 'type' => 'checkbox', 'label' => 'Show the density switch', 'default' => true ),
+			) ),
+		),
+	);
+
+	/* ---- Product page ---- */
+	$cfg['neldra_product'] = array(
+		'label'    => __( 'Product page', 'neldra' ),
+		'sections' => array(
+			'pd' => array( 'label' => __( 'Info accordion copy', 'neldra' ), 'fields' => array(
+				'pd_materials' => array( 'type' => 'textarea', 'label' => 'Materials', 'default' => 'Solid oak platform, high-resilience foam, feather-wrapped back cushions.' ),
+				'pd_shipping'  => array( 'type' => 'textarea', 'label' => 'Production & shipping', 'default' => 'Made to order. Production time confirmed at checkout. White-glove furniture delivery.' ),
+				'pd_care'      => array( 'type' => 'textarea', 'label' => 'Care & warranty', 'default' => 'Wipe with a dry cloth. Five-year structural warranty.' ),
 			) ),
 		),
 	);
@@ -259,6 +273,8 @@ function neldra_color_fields() {
 		'color_dark'       => array( 'type' => 'color', 'label' => 'Dark sections', 'default' => '#131313' ),
 		'color_on_dark'    => array( 'type' => 'color', 'label' => 'Text on dark', 'default' => '#F4F4F3' ),
 		'color_accent'     => array( 'type' => 'color', 'label' => 'Cold accent', 'default' => '#8A97A0' ),
+		'hero_shop_bg'     => array( 'type' => 'color', 'label' => 'Hero — Shop side background', 'default' => '#FFFFFF' ),
+		'hero_contract_bg' => array( 'type' => 'color', 'label' => 'Hero — Contract side background', 'default' => '#131313' ),
 	);
 }
 
@@ -293,6 +309,10 @@ function neldra_inline_css() {
 	$width = (int) neldra_mod( 'layout_width' );
 	$text  = neldra_mod( 'color_text' );
 	$rgb   = neldra_hex_to_rgb( $text );
+	$scale = (float) neldra_mod( 'type_scale' );
+	if ( $scale <= 0 ) { $scale = 1; }
+	$body_size = (int) neldra_mod( 'body_size' );
+	if ( $body_size <= 0 ) { $body_size = 16; }
 
 	$css  = ':root{';
 	$css .= '--c-bg:' . esc_html( neldra_mod( 'color_bg' ) ) . ';';
@@ -308,7 +328,9 @@ function neldra_inline_css() {
 	$css .= '--c-line-soft:rgba(' . $rgb . ',.06);';
 	$css .= '--wrap:' . ( $width ? $width : 1600 ) . 'px;';
 	$css .= '--section-y:' . $section_y . ';';
+	$css .= '--type-scale:' . $scale . ';';
 	$css .= '}';
+	$css .= 'body{font-size:' . $body_size . 'px;}';
 	return $css;
 }
 add_action( 'wp_enqueue_scripts', function () {

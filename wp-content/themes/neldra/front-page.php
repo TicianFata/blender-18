@@ -45,9 +45,9 @@ function neldra_home_hero() {
 	$contract_url = home_url( '/contract/' );
 	?>
 	<section class="hero" data-hero aria-label="<?php esc_attr_e( 'Choose Shop or Contract', 'neldra' ); ?>">
-		<a class="panel panel--shop" data-panel="shop" href="<?php echo esc_url( $shop_url ); ?>">
+		<a class="panel panel--shop" data-panel="shop" href="<?php echo esc_url( $shop_url ); ?>" style="background:<?php echo esc_attr( neldra_mod( 'hero_shop_bg' ) ); ?>">
 			<div class="panel__media">
-				<div class="ph ph--shop"></div>
+				<div class="ph ph--shop" style="background:<?php echo esc_attr( neldra_mod( 'hero_shop_bg' ) ); ?>"></div>
 				<img src="<?php echo esc_url( neldra_mod( 'hs_image' ) ); ?>" alt="<?php echo esc_attr( neldra_mod( 'hs_title' ) ); ?>" style="position:absolute;left:50%;top:50%;width:84%;transform:translate(-50%,-50%);object-fit:contain">
 			</div>
 			<div class="panel__label">
@@ -59,7 +59,7 @@ function neldra_home_hero() {
 		</a>
 		<a class="panel panel--contract" data-panel="contract" href="<?php echo esc_url( $contract_url ); ?>">
 			<div class="panel__media">
-				<div class="ph ph--contract"></div>
+				<div class="ph ph--contract" style="background:<?php echo esc_attr( neldra_mod( 'hero_contract_bg' ) ); ?>"></div>
 				<img src="<?php echo esc_url( neldra_mod( 'hc_image' ) ); ?>" alt="<?php echo esc_attr( neldra_mod( 'hc_title' ) ); ?>" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
 			</div>
 			<div class="panel__label">

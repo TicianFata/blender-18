@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NELDRA_VERSION', '1.0.0' );
+define( 'NELDRA_VERSION', '1.1.0' );
 define( 'NELDRA_DIR', get_template_directory() );
 define( 'NELDRA_URI', get_template_directory_uri() );
 
@@ -203,6 +203,34 @@ function neldra_single_made_to_order() {
 	echo '<p class="meta" style="margin:.5rem 0 0">' . esc_html__( 'Collection · Made to order', 'neldra' ) . '</p>';
 }
 
+// Remove the "Add to cart" button from the shop/collection product cards.
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+
+// Expandable info accordion on the single product (like the mockup).
+add_action( 'woocommerce_single_product_summary', 'neldra_single_accordion', 45 );
+function neldra_single_accordion() {
+	global $product;
+	if ( ! $product ) {
+		return;
+	}
+	$items = array();
+
+	$dims = method_exists( $product, 'get_dimensions' ) ? wc_format_dimensions( $product->get_dimensions( false ) ) : '';
+	if ( $dims && 'N/A' !== $dims ) {
+		$items[ __( 'Dimensions', 'neldra' ) ] = esc_html( $dims );
+	}
+	// Editable global copy (Customize → Product page) with sensible defaults.
+	$items[ __( 'Materials', 'neldra' ) ]           = esc_html( neldra_mod( 'pd_materials' ) );
+	$items[ __( 'Production & shipping', 'neldra' ) ] = esc_html( neldra_mod( 'pd_shipping' ) );
+	$items[ __( 'Care & warranty', 'neldra' ) ]      = esc_html( neldra_mod( 'pd_care' ) );
+
+	echo '<div class="acc">';
+	foreach ( $items as $label => $body ) {
+		echo '<div class="acc__item" aria-expanded="false"><button type="button" class="acc__head">' . esc_html( $label ) . ' <span class="acc__icon">+</span></button><div class="acc__body"><div>' . $body . '</div></div></div>';
+	}
+	echo '</div>';
+}
+
 // Cleaner: drop WooCommerce's default result-count/sorting noise on the shop.
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
@@ -291,6 +319,20 @@ function neldra_first_run() {
 	if ( $home ) {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $home );
+	}
+
+	// --- Use classic (shortcode) Cart & Checkout so the theme styling applies ---
+	if ( function_exists( 'wc_get_page_id' ) ) {
+		$pairs = array( 'cart' => '[woocommerce_cart]', 'checkout' => '[woocommerce_checkout]' );
+		foreach ( $pairs as $slug => $shortcode ) {
+			$pid = wc_get_page_id( $slug );
+			if ( $pid > 0 ) {
+				$content = (string) get_post_field( 'post_content', $pid );
+				if ( false === strpos( $content, $shortcode ) ) {
+					wp_update_post( array( 'ID' => $pid, 'post_content' => $shortcode ) );
+				}
+			}
+		}
 	}
 
 	// --- Primary menu ---
