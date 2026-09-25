@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" role="img" aria-label="Neldra platform sofa">
+  <defs>
+    <linearGradient id="cush" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#232323"/>
+      <stop offset="1" stop-color="#141414"/>
+    </linearGradient>
+    <linearGradient id="slabTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a2a"/>
+      <stop offset="1" stop-color="#191919"/>
+    </linearGradient>
+  </defs>
+  <!-- soft contact shadow so the piece grounds on white with no visible image edge -->
+  <ellipse cx="560" cy="560" rx="470" ry="30" fill="#000" opacity="0.07"/>
+  <!-- lower floating platform -->
+  <polygon points="120,470 980,470 1050,520 190,520" fill="#111"/>
+  <rect x="120" y="470" width="860" height="16" fill="#0c0c0c"/>
+  <!-- upper offset platform (the signature stacked slab) -->
+  <polygon points="150,392 900,392 968,338 218,338" fill="url(#slabTop)"/>
+  <rect x="150" y="392" width="750" height="18" fill="#0c0c0c"/>
+  <polygon points="900,392 900,410 968,356 968,338" fill="#050505"/>
+  <!-- seat cushions -->
+  <g>
+    <rect x="300" y="330" width="150" height="70" rx="12" fill="url(#cush)"/>
+    <rect x="460" y="330" width="150" height="70" rx="12" fill="url(#cush)"/>
+    <rect x="620" y="330" width="150" height="70" rx="12" fill="url(#cush)"/>
+  </g>
+  <!-- back cushions -->
+  <g>
+    <rect x="300" y="238" width="150" height="104" rx="14" fill="url(#cush)"/>
+    <rect x="460" y="238" width="150" height="104" rx="14" fill="url(#cush)"/>
+    <rect x="620" y="238" width="150" height="104" rx="14" fill="url(#cush)"/>
+  </g>
+</svg>

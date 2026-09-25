@@ -1,0 +1,19 @@
+/*
+Theme Name: Neldra (Blocksy Child)
+Theme URI: https://neldra.com
+Description: Child theme of Blocksy for the Neldra furniture site. Safe place for custom CSS/PHP. The animated sections (hero, collections) + fonts come from the "Neldra Sections" plugin; base look (colours, type, spacing, WooCommerce) is set in Appearance → Customize.
+Template: blocksy
+Author: Neldra
+Version: 1.0.0
+License: GPL-2.0-or-later
+Text Domain: neldra-blocksy-child
+*/
+
+/* ---- Optional base-look tweaks on top of Blocksy ----
+   Most of the look is set in the Customizer. Add refinements here. */
+
+/* Example: quieter, wider letter-spacing on product titles to match Neldra.
+.woocommerce ul.products li.product .woocommerce-loop-product__title{
+  letter-spacing:.02em; font-weight:400;
+}
+*/
